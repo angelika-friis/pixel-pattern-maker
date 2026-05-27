@@ -1,6 +1,6 @@
 import type { ChangeEvent, DragEvent, RefObject } from 'react';
-import { Download, Grid3X3, ImagePlus, RotateCcw, SlidersHorizontal } from 'lucide-react';
-import { clamp } from '../domain/pixelGrid';
+import { Download, Grid3X3, ImagePlus, Palette, RotateCcw, SlidersHorizontal } from 'lucide-react';
+import { MAX_COLOR_COUNT, MIN_COLOR_COUNT, clamp } from '../domain/pixelGrid';
 import type { OutputInfo } from '../domain/pixelGrid';
 import type { PixelColor } from '../infrastructure/canvas/drawPixelArt';
 import { PalettePanel } from './PalettePanel';
@@ -8,6 +8,7 @@ import { PalettePanel } from './PalettePanel';
 type ControlPanelProps = {
   fileName: string;
   fileInputRef: RefObject<HTMLInputElement | null>;
+  colorCount: number;
   gridColor: string;
   hasImage: boolean;
   outputInfo: OutputInfo | null;
@@ -16,6 +17,7 @@ type ControlPanelProps = {
   showColors: boolean;
   showGrid: boolean;
   onDownload: () => void;
+  onColorCountChange: (value: number) => void;
   onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onFileDrop: (event: DragEvent<HTMLLabelElement>) => void;
   onGridColorChange: (value: string) => void;
@@ -28,6 +30,7 @@ type ControlPanelProps = {
 export function ControlPanel({
   fileName,
   fileInputRef,
+  colorCount,
   gridColor,
   hasImage,
   outputInfo,
@@ -36,6 +39,7 @@ export function ControlPanel({
   showColors,
   showGrid,
   onDownload,
+  onColorCountChange,
   onFileChange,
   onFileDrop,
   onGridColorChange,
@@ -82,6 +86,38 @@ export function ControlPanel({
           value={pixelSize}
           onChange={(event) => onPixelSizeChange(clamp(Number(event.target.value) || 2, 2, 128))}
           aria-label="Pixelstorlek i pixlar"
+        />
+      </div>
+
+      <div className="control-group">
+        <div className="control-heading">
+          <Palette aria-hidden="true" />
+          <span>Antal färger</span>
+          <strong>{colorCount}</strong>
+        </div>
+        <input
+          type="range"
+          min={MIN_COLOR_COUNT}
+          max={MAX_COLOR_COUNT}
+          value={colorCount}
+          onChange={(event) => onColorCountChange(Number(event.target.value))}
+        />
+        <input
+          className="number-input"
+          type="number"
+          min={MIN_COLOR_COUNT}
+          max={MAX_COLOR_COUNT}
+          value={colorCount}
+          onChange={(event) =>
+            onColorCountChange(
+              clamp(
+                Number(event.target.value) || MIN_COLOR_COUNT,
+                MIN_COLOR_COUNT,
+                MAX_COLOR_COUNT,
+              ),
+            )
+          }
+          aria-label="Antal färger i bilden"
         />
       </div>
 

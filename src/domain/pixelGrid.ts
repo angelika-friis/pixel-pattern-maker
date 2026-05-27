@@ -1,4 +1,7 @@
 export const DEFAULT_PIXEL_SIZE = 12;
+export const DEFAULT_COLOR_COUNT = 16;
+export const MIN_COLOR_COUNT = 2;
+export const MAX_COLOR_COUNT = 64;
 export const MAX_CANVAS_EDGE = 1600;
 
 export type ImageSize = {

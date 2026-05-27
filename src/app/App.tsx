@@ -2,7 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ChangeEvent, DragEvent } from 'react';
 import { ControlPanel } from '../components/ControlPanel';
 import { PreviewPanel } from '../components/PreviewPanel';
-import { DEFAULT_PIXEL_SIZE, getOutputInfo, getPreviewInfo } from '../domain/pixelGrid';
+import {
+  DEFAULT_COLOR_COUNT,
+  DEFAULT_PIXEL_SIZE,
+  getOutputInfo,
+  getPreviewInfo,
+} from '../domain/pixelGrid';
 import { useResizeObserver } from '../hooks/useResizeObserver';
 import { drawPixelArt, getPixelColors } from '../infrastructure/canvas/drawPixelArt';
 
@@ -10,6 +15,7 @@ export function App() {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [fileName, setFileName] = useState('');
   const [pixelSize, setPixelSize] = useState(DEFAULT_PIXEL_SIZE);
+  const [colorCount, setColorCount] = useState(DEFAULT_COLOR_COUNT);
   const [showGrid, setShowGrid] = useState(true);
   const [showColors, setShowColors] = useState(false);
   const [gridColor, setGridColor] = useState('#111827');
@@ -39,8 +45,8 @@ export function App() {
       return [];
     }
 
-    return getPixelColors(image, outputInfo);
-  }, [image, outputInfo]);
+    return getPixelColors(image, outputInfo, colorCount);
+  }, [colorCount, image, outputInfo]);
 
   const renderPixelArt = useCallback(
     (cellSize = pixelSize, targetCanvas = canvasRef.current) => {
@@ -53,11 +59,12 @@ export function App() {
         image,
         outputInfo,
         cellSize,
+        colorCount,
         showGrid,
         gridColor,
       });
     },
-    [gridColor, image, outputInfo, pixelSize, showGrid],
+    [colorCount, gridColor, image, outputInfo, pixelSize, showGrid],
   );
 
   useEffect(() => {
@@ -113,6 +120,7 @@ export function App() {
     setImage(null);
     setFileName('');
     setPixelSize(DEFAULT_PIXEL_SIZE);
+    setColorCount(DEFAULT_COLOR_COUNT);
     setShowGrid(true);
     setShowColors(false);
     if (fileInputRef.current) {
@@ -126,6 +134,7 @@ export function App() {
         <ControlPanel
           fileName={fileName}
           fileInputRef={fileInputRef}
+          colorCount={colorCount}
           gridColor={gridColor}
           hasImage={Boolean(image)}
           outputInfo={outputInfo}
@@ -136,6 +145,7 @@ export function App() {
           onDownload={downloadImage}
           onFileChange={handleFileChange}
           onFileDrop={handleDrop}
+          onColorCountChange={setColorCount}
           onGridColorChange={setGridColor}
           onPixelSizeChange={setPixelSize}
           onReset={reset}
