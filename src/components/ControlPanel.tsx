@@ -2,6 +2,8 @@ import type { ChangeEvent, DragEvent, RefObject } from 'react';
 import { Download, Grid3X3, ImagePlus, RotateCcw, SlidersHorizontal } from 'lucide-react';
 import { clamp } from '../domain/pixelGrid';
 import type { OutputInfo } from '../domain/pixelGrid';
+import type { PixelColor } from '../infrastructure/canvas/drawPixelArt';
+import { PalettePanel } from './PalettePanel';
 
 type ControlPanelProps = {
   fileName: string;
@@ -9,7 +11,9 @@ type ControlPanelProps = {
   gridColor: string;
   hasImage: boolean;
   outputInfo: OutputInfo | null;
+  pixelColors: PixelColor[];
   pixelSize: number;
+  showColors: boolean;
   showGrid: boolean;
   onDownload: () => void;
   onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -17,6 +21,7 @@ type ControlPanelProps = {
   onGridColorChange: (value: string) => void;
   onPixelSizeChange: (value: number) => void;
   onReset: () => void;
+  onShowColorsChange: (value: boolean) => void;
   onShowGridChange: (value: boolean) => void;
 };
 
@@ -26,7 +31,9 @@ export function ControlPanel({
   gridColor,
   hasImage,
   outputInfo,
+  pixelColors,
   pixelSize,
+  showColors,
   showGrid,
   onDownload,
   onFileChange,
@@ -34,6 +41,7 @@ export function ControlPanel({
   onGridColorChange,
   onPixelSizeChange,
   onReset,
+  onShowColorsChange,
   onShowGridChange,
 }: ControlPanelProps) {
   return (
@@ -97,6 +105,18 @@ export function ControlPanel({
           />
         </label>
       </div>
+
+      <label className="switch">
+        <input
+          type="checkbox"
+          checked={showColors}
+          disabled={!hasImage}
+          onChange={(event) => onShowColorsChange(event.target.checked)}
+        />
+        <span>Visa alla färger</span>
+      </label>
+
+      {showColors && hasImage && <PalettePanel pixelColors={pixelColors} />}
 
       <div className="action-row">
         <button type="button" onClick={onDownload} disabled={!hasImage}>

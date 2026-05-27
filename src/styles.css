@@ -164,6 +164,83 @@ input[type='range'] {
   accent-color: #227c6d;
 }
 
+.switch input:disabled {
+  cursor: not-allowed;
+}
+
+.palette-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.palette-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 800;
+}
+
+.palette-heading strong {
+  min-width: 34px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  color: #fff;
+  background: #17202a;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.palette-grid {
+  display: grid;
+  gap: 7px;
+  max-height: 230px;
+  padding-right: 4px;
+  overflow: auto;
+}
+
+.palette-item {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 5px 8px;
+  border: 1px solid #d7dde3;
+  border-radius: 6px;
+  background: #f7f9fa;
+  font-size: 0.84rem;
+}
+
+.palette-item span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.palette-item strong {
+  color: #667380;
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(17, 24, 39, 0.18);
+  border-radius: 5px;
+  background-image:
+    linear-gradient(45deg, #d7dde3 25%, transparent 25%),
+    linear-gradient(-45deg, #d7dde3 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #d7dde3 75%),
+    linear-gradient(-45deg, transparent 75%, #d7dde3 75%);
+  background-position:
+    0 0,
+    0 6px,
+    6px -6px,
+    -6px 0;
+  background-size: 12px 12px;
+}
+
 .color-control {
   padding: 5px 8px;
   border: 1px solid #d7dde3;

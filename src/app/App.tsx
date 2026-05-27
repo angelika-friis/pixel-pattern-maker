@@ -4,13 +4,14 @@ import { ControlPanel } from '../components/ControlPanel';
 import { PreviewPanel } from '../components/PreviewPanel';
 import { DEFAULT_PIXEL_SIZE, getOutputInfo, getPreviewInfo } from '../domain/pixelGrid';
 import { useResizeObserver } from '../hooks/useResizeObserver';
-import { drawPixelArt } from '../infrastructure/canvas/drawPixelArt';
+import { drawPixelArt, getPixelColors } from '../infrastructure/canvas/drawPixelArt';
 
 export function App() {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [fileName, setFileName] = useState('');
   const [pixelSize, setPixelSize] = useState(DEFAULT_PIXEL_SIZE);
   const [showGrid, setShowGrid] = useState(true);
+  const [showColors, setShowColors] = useState(false);
   const [gridColor, setGridColor] = useState('#111827');
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const previewRef = useRef<HTMLElement | null>(null);
@@ -32,6 +33,14 @@ export function App() {
 
     return getPreviewInfo(outputInfo, pixelSize, previewBounds);
   }, [outputInfo, pixelSize, previewBounds]);
+
+  const pixelColors = useMemo(() => {
+    if (!image || !outputInfo) {
+      return [];
+    }
+
+    return getPixelColors(image, outputInfo);
+  }, [image, outputInfo]);
 
   const renderPixelArt = useCallback(
     (cellSize = pixelSize, targetCanvas = canvasRef.current) => {
@@ -105,6 +114,7 @@ export function App() {
     setFileName('');
     setPixelSize(DEFAULT_PIXEL_SIZE);
     setShowGrid(true);
+    setShowColors(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -119,7 +129,9 @@ export function App() {
           gridColor={gridColor}
           hasImage={Boolean(image)}
           outputInfo={outputInfo}
+          pixelColors={pixelColors}
           pixelSize={pixelSize}
+          showColors={showColors}
           showGrid={showGrid}
           onDownload={downloadImage}
           onFileChange={handleFileChange}
@@ -127,6 +139,7 @@ export function App() {
           onGridColorChange={setGridColor}
           onPixelSizeChange={setPixelSize}
           onReset={reset}
+          onShowColorsChange={setShowColors}
           onShowGridChange={setShowGrid}
         />
         <PreviewPanel
