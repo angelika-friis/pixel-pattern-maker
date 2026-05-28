@@ -45,10 +45,10 @@ export function createPaletteCanvas(
   const rows = Math.ceil(pixelColors.length / columns);
   const paletteHeight =
     PALETTE_EXPORT_PADDING * 2 +
-      PALETTE_EXPORT_HEADER_HEIGHT +
-      PALETTE_EXPORT_GAP +
-      rows * PALETTE_EXPORT_ITEM_HEIGHT +
-      Math.max(0, rows - 1) * PALETTE_EXPORT_GAP;
+    PALETTE_EXPORT_HEADER_HEIGHT +
+    PALETTE_EXPORT_GAP +
+    rows * PALETTE_EXPORT_ITEM_HEIGHT +
+    Math.max(0, rows - 1) * PALETTE_EXPORT_GAP;
   const ctx = canvas.getContext('2d');
 
   canvas.width = paletteWidth;
@@ -75,9 +75,7 @@ export function createPaletteCanvas(
   pixelColors.forEach((color, index) => {
     const column = index % columns;
     const row = Math.floor(index / columns);
-    const x =
-      PALETTE_EXPORT_PADDING +
-      column * (PALETTE_EXPORT_ITEM_WIDTH + PALETTE_EXPORT_GAP);
+    const x = PALETTE_EXPORT_PADDING + column * (PALETTE_EXPORT_ITEM_WIDTH + PALETTE_EXPORT_GAP);
     const y =
       PALETTE_EXPORT_PADDING +
       PALETTE_EXPORT_HEADER_HEIGHT +
@@ -110,8 +108,7 @@ export function createPaletteCanvas(
     );
 
     ctx.fillStyle = '#17202a';
-    const label =
-      showSymbols && 'symbol' in color ? `${color.symbol}  ${color.hex}` : color.hex;
+    const label = showSymbols && 'symbol' in color ? `${color.symbol}  ${color.hex}` : color.hex;
     ctx.fillText(label, swatchX + PALETTE_EXPORT_SWATCH_SIZE + 12, y + 15);
   });
 

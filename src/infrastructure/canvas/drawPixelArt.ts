@@ -152,16 +152,17 @@ function quantizeImageData(imageData: ImageData, colorCount: number) {
       continue;
     }
 
-    const paletteColor = palette[
-      findClosestPaletteIndex(
-        {
-          r: data[index],
-          g: data[index + 1],
-          b: data[index + 2],
-        },
-        palette,
-      )
-    ];
+    const paletteColor =
+      palette[
+        findClosestPaletteIndex(
+          {
+            r: data[index],
+            g: data[index + 1],
+            b: data[index + 2],
+          },
+          palette,
+        )
+      ];
 
     data[index] = paletteColor.r;
     data[index + 1] = paletteColor.g;
