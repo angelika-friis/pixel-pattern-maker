@@ -1,4 +1,4 @@
-import type { PixelColor } from './drawPixelArt';
+import type { PixelColor } from '../../domain/pixelGrid';
 
 export type PixelColorSymbol = PixelColor & {
   symbol: string;

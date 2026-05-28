@@ -21,6 +21,11 @@ export type PreviewInfo = ImageSize & {
   scale: number;
 };
 
+export type PixelColor = {
+  hex: string;
+  count: number;
+};
+
 export function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }

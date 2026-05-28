@@ -1,5 +1,5 @@
-import type { PixelColorSymbol } from './colorSymbols';
-import type { PixelColor } from './drawPixelArt';
+import type { PixelColor } from '../../domain/pixelGrid';
+import type { PixelColorSymbol } from '../pattern/colorSymbols';
 
 type PaletteCanvasOptions = {
   showSymbols?: boolean;

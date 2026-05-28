@@ -1,4 +1,4 @@
-import type { PixelColor } from '../infrastructure/canvas/drawPixelArt';
+import type { PixelColor } from '../domain/pixelGrid';
 
 type PalettePanelProps = {
   pixelColors: PixelColor[];

@@ -1,6 +1,8 @@
 import type { OutputInfo } from '../../domain/pixelGrid';
 import { createColorSymbolMap, type PixelColorSymbol } from './colorSymbols';
-import { getQuantizedImageData } from './drawPixelArt';
+import { drawGridLines } from '../canvas/drawGridLines';
+import { toHex } from '../imageProcessing/colorValues';
+import { getQuantizedImageData } from '../imageProcessing/quantizeImageData';
 
 type CreateSymbolPatternCanvasOptions = {
   image: HTMLImageElement;
@@ -10,10 +12,6 @@ type CreateSymbolPatternCanvasOptions = {
   pixelColors: PixelColorSymbol[];
   gridColor: string;
 };
-
-function toHex(value: number) {
-  return value.toString(16).padStart(2, '0');
-}
 
 function getPixelHex(imageData: ImageData, pixelIndex: number) {
   const dataIndex = pixelIndex * 4;
@@ -71,26 +69,13 @@ export function createSymbolPatternCanvas({
     }
   }
 
-  ctx.save();
-  ctx.strokeStyle = gridColor;
-  ctx.globalAlpha = 0.42;
-  ctx.lineWidth = 1;
-
-  for (let x = 0; x <= canvas.width; x += symbolCellSize) {
-    ctx.beginPath();
-    ctx.moveTo(x + 0.5, 0);
-    ctx.lineTo(x + 0.5, canvas.height);
-    ctx.stroke();
-  }
-
-  for (let y = 0; y <= canvas.height; y += symbolCellSize) {
-    ctx.beginPath();
-    ctx.moveTo(0, y + 0.5);
-    ctx.lineTo(canvas.width, y + 0.5);
-    ctx.stroke();
-  }
-
-  ctx.restore();
+  drawGridLines({
+    ctx,
+    width: canvas.width,
+    height: canvas.height,
+    cellSize: symbolCellSize,
+    gridColor,
+  });
 
   return canvas;
 }
