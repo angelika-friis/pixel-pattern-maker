@@ -9,6 +9,7 @@ import {
   getPreviewInfo,
 } from '../domain/pixelGrid';
 import { useResizeObserver } from '../hooks/useResizeObserver';
+import { createDownloadCanvas } from '../infrastructure/canvas/createDownloadCanvas';
 import { drawPixelArt, getPixelColors } from '../infrastructure/canvas/drawPixelArt';
 
 export function App() {
@@ -104,11 +105,12 @@ export function App() {
 
     const exportCanvas = document.createElement('canvas');
     renderPixelArt(pixelSize, exportCanvas);
+    const downloadCanvas = createDownloadCanvas(exportCanvas, pixelColors);
 
     const link = document.createElement('a');
     const baseName = fileName.replace(/\.[^.]+$/, '') || 'pixel-grid';
     link.download = `${baseName}-pixel-grid.png`;
-    link.href = exportCanvas.toDataURL('image/png');
+    link.href = downloadCanvas.toDataURL('image/png');
     link.click();
 
     if (previewInfo) {
