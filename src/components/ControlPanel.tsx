@@ -157,7 +157,7 @@ export function ControlPanel({
       <div className="action-row">
         <button type="button" onClick={onDownload} disabled={!hasImage}>
           <Download aria-hidden="true" />
-          PNG
+          PDF
         </button>
         <button type="button" className="secondary" onClick={onReset}>
           <RotateCcw aria-hidden="true" />

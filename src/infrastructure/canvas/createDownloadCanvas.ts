@@ -1,11 +1,16 @@
+import type { PixelColorSymbol } from './colorSymbols';
 import type { PixelColor } from './drawPixelArt';
 
-const PALETTE_EXPORT_MIN_WIDTH = 520;
-const PALETTE_EXPORT_PADDING = 24;
-const PALETTE_EXPORT_GAP = 10;
-const PALETTE_EXPORT_ITEM_WIDTH = 150;
-const PALETTE_EXPORT_ITEM_HEIGHT = 32;
-const PALETTE_EXPORT_SWATCH_SIZE = 22;
+type PaletteCanvasOptions = {
+  showSymbols?: boolean;
+};
+
+const PALETTE_EXPORT_PADDING = 32;
+const PALETTE_EXPORT_GAP = 14;
+const PALETTE_EXPORT_ITEM_WIDTH = 210;
+const PALETTE_EXPORT_ITEM_HEIGHT = 48;
+const PALETTE_EXPORT_SWATCH_SIZE = 34;
+const PALETTE_EXPORT_HEADER_HEIGHT = 30;
 
 function drawTransparencyPattern(
   ctx: CanvasRenderingContext2D,
@@ -28,64 +33,54 @@ function drawTransparencyPattern(
   }
 }
 
-export function createDownloadCanvas(pixelCanvas: HTMLCanvasElement, pixelColors: PixelColor[]) {
+export function createPaletteCanvas(
+  pixelColors: Array<PixelColor | PixelColorSymbol>,
+  { showSymbols = false }: PaletteCanvasOptions = {},
+) {
   const canvas = document.createElement('canvas');
-  const width = Math.max(pixelCanvas.width, PALETTE_EXPORT_MIN_WIDTH);
-  const paletteContentWidth = width - PALETTE_EXPORT_PADDING * 2;
-  const columns = Math.max(
-    1,
-    Math.floor((paletteContentWidth + PALETTE_EXPORT_GAP) / PALETTE_EXPORT_ITEM_WIDTH),
-  );
-  const itemWidth =
-    (paletteContentWidth - PALETTE_EXPORT_GAP * Math.max(0, columns - 1)) / columns;
+  const columns = pixelColors.length > 24 ? 2 : 1;
+  const paletteContentWidth =
+    columns * PALETTE_EXPORT_ITEM_WIDTH + Math.max(0, columns - 1) * PALETTE_EXPORT_GAP;
+  const paletteWidth = paletteContentWidth + PALETTE_EXPORT_PADDING * 2;
   const rows = Math.ceil(pixelColors.length / columns);
   const paletteHeight =
     PALETTE_EXPORT_PADDING * 2 +
-    22 +
-    PALETTE_EXPORT_GAP +
-    rows * PALETTE_EXPORT_ITEM_HEIGHT +
-    Math.max(0, rows - 1) * PALETTE_EXPORT_GAP;
+      PALETTE_EXPORT_HEADER_HEIGHT +
+      PALETTE_EXPORT_GAP +
+      rows * PALETTE_EXPORT_ITEM_HEIGHT +
+      Math.max(0, rows - 1) * PALETTE_EXPORT_GAP;
   const ctx = canvas.getContext('2d');
 
-  canvas.width = width;
-  canvas.height = pixelCanvas.height + paletteHeight;
+  canvas.width = paletteWidth;
+  canvas.height = paletteHeight;
 
   if (!ctx) {
-    return pixelCanvas;
+    return canvas;
   }
 
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(pixelCanvas, Math.floor((width - pixelCanvas.width) / 2), 0);
-
-  const paletteTop = pixelCanvas.height;
   ctx.fillStyle = '#f7f9fa';
-  ctx.fillRect(0, paletteTop, width, paletteHeight);
-  ctx.strokeStyle = '#d7dde3';
-  ctx.beginPath();
-  ctx.moveTo(0, paletteTop + 0.5);
-  ctx.lineTo(width, paletteTop + 0.5);
-  ctx.stroke();
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = '#17202a';
-  ctx.font = '800 15px Inter, Arial, sans-serif';
+  ctx.font = '800 19px Inter, Arial, sans-serif';
   ctx.textBaseline = 'top';
   ctx.fillText(
     `Palett (${pixelColors.length} ${pixelColors.length === 1 ? 'färg' : 'färger'})`,
     PALETTE_EXPORT_PADDING,
-    paletteTop + PALETTE_EXPORT_PADDING,
+    PALETTE_EXPORT_PADDING,
   );
 
-  ctx.font = '700 12px Inter, Arial, sans-serif';
+  ctx.font = '700 16px Inter, Arial, sans-serif';
 
   pixelColors.forEach((color, index) => {
     const column = index % columns;
     const row = Math.floor(index / columns);
-    const x = PALETTE_EXPORT_PADDING + column * (itemWidth + PALETTE_EXPORT_GAP);
-    const y =
-      paletteTop +
+    const x =
       PALETTE_EXPORT_PADDING +
-      22 +
+      column * (PALETTE_EXPORT_ITEM_WIDTH + PALETTE_EXPORT_GAP);
+    const y =
+      PALETTE_EXPORT_PADDING +
+      PALETTE_EXPORT_HEADER_HEIGHT +
       PALETTE_EXPORT_GAP +
       row * (PALETTE_EXPORT_ITEM_HEIGHT + PALETTE_EXPORT_GAP);
 
@@ -93,11 +88,11 @@ export function createDownloadCanvas(pixelCanvas: HTMLCanvasElement, pixelColors
     ctx.strokeStyle = '#d7dde3';
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.roundRect(x, y, itemWidth, PALETTE_EXPORT_ITEM_HEIGHT, 6);
+    ctx.roundRect(x, y, PALETTE_EXPORT_ITEM_WIDTH, PALETTE_EXPORT_ITEM_HEIGHT, 8);
     ctx.fill();
     ctx.stroke();
 
-    const swatchX = x + 6;
+    const swatchX = x + 8;
     const swatchY = y + (PALETTE_EXPORT_ITEM_HEIGHT - PALETTE_EXPORT_SWATCH_SIZE) / 2;
     if (color.hex === 'transparent') {
       drawTransparencyPattern(ctx, swatchX, swatchY, PALETTE_EXPORT_SWATCH_SIZE);
@@ -115,7 +110,9 @@ export function createDownloadCanvas(pixelCanvas: HTMLCanvasElement, pixelColors
     );
 
     ctx.fillStyle = '#17202a';
-    ctx.fillText(color.hex, swatchX + PALETTE_EXPORT_SWATCH_SIZE + 8, y + 9);
+    const label =
+      showSymbols && 'symbol' in color ? `${color.symbol}  ${color.hex}` : color.hex;
+    ctx.fillText(label, swatchX + PALETTE_EXPORT_SWATCH_SIZE + 12, y + 15);
   });
 
   return canvas;

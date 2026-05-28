@@ -9,7 +9,10 @@ import {
   getPreviewInfo,
 } from '../domain/pixelGrid';
 import { useResizeObserver } from '../hooks/useResizeObserver';
-import { createDownloadCanvas } from '../infrastructure/canvas/createDownloadCanvas';
+import { createColorSymbols } from '../infrastructure/canvas/colorSymbols';
+import { createPaletteCanvas } from '../infrastructure/canvas/createDownloadCanvas';
+import { createMultiPagePdfBlob } from '../infrastructure/canvas/createPdfBlob';
+import { createSymbolPatternCanvas } from '../infrastructure/canvas/createSymbolPatternCanvas';
 import { drawPixelArt, getPixelColors } from '../infrastructure/canvas/drawPixelArt';
 
 export function App() {
@@ -98,20 +101,40 @@ export function App() {
     loadFile(event.dataTransfer.files?.[0]);
   };
 
-  const downloadImage = () => {
+  const downloadPdf = () => {
     if (!image || !outputInfo) {
       return;
     }
 
     const exportCanvas = document.createElement('canvas');
     renderPixelArt(pixelSize, exportCanvas);
-    const downloadCanvas = createDownloadCanvas(exportCanvas, pixelColors);
+    const visiblePixelColors = pixelColors.filter((color) => color.hex !== 'transparent');
+    const pixelColorSymbols = createColorSymbols(visiblePixelColors);
+    const colorPaletteCanvas = createPaletteCanvas(visiblePixelColors);
+    const symbolPatternCanvas = createSymbolPatternCanvas({
+      image,
+      outputInfo,
+      cellSize: pixelSize,
+      colorCount,
+      pixelColors: pixelColorSymbols,
+      gridColor,
+    });
+    const symbolPaletteCanvas = createPaletteCanvas(pixelColorSymbols, { showSymbols: true });
 
     const link = document.createElement('a');
     const baseName = fileName.replace(/\.[^.]+$/, '') || 'pixel-grid';
-    link.download = `${baseName}-pixel-grid.png`;
-    link.href = downloadCanvas.toDataURL('image/png');
+    const url = URL.createObjectURL(
+      createMultiPagePdfBlob([
+        exportCanvas,
+        colorPaletteCanvas,
+        symbolPatternCanvas,
+        symbolPaletteCanvas,
+      ]),
+    );
+    link.download = `${baseName}-pixel-grid.pdf`;
+    link.href = url;
     link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url));
 
     if (previewInfo) {
       renderPixelArt(previewInfo.cellSize);
@@ -144,7 +167,7 @@ export function App() {
           pixelSize={pixelSize}
           showColors={showColors}
           showGrid={showGrid}
-          onDownload={downloadImage}
+          onDownload={downloadPdf}
           onFileChange={handleFileChange}
           onFileDrop={handleDrop}
           onColorCountChange={setColorCount}

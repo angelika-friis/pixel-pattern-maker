@@ -172,7 +172,7 @@ function quantizeImageData(imageData: ImageData, colorCount: number) {
   return imageData;
 }
 
-function getQuantizedImageData(
+export function getQuantizedImageData(
   image: HTMLImageElement,
   outputInfo: OutputInfo,
   colorCount: number,
