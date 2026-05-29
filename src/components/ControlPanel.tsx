@@ -1,14 +1,12 @@
 import type { ChangeEvent, DragEvent, RefObject } from 'react';
 import { Palette, SlidersHorizontal } from 'lucide-react';
 import { MAX_COLOR_COUNT, MIN_COLOR_COUNT } from '../domain/pixelGrid';
-import type { OutputInfo, PixelColor } from '../domain/pixelGrid';
+import type { OutputInfo } from '../domain/pixelGrid';
 import { ControlActions } from './controls/ControlActions';
 import { GridControls } from './controls/GridControls';
 import { ImageDropZone } from './controls/ImageDropZone';
 import { OutputStats } from './controls/OutputStats';
-import { PaletteToggle } from './controls/PaletteToggle';
 import { RangeNumberControl } from './controls/RangeNumberControl';
-import { PalettePanel } from './PalettePanel';
 
 type ControlPanelProps = {
   fileName: string;
@@ -17,9 +15,7 @@ type ControlPanelProps = {
   gridColor: string;
   hasImage: boolean;
   outputInfo: OutputInfo | null;
-  pixelColors: PixelColor[];
   pixelSize: number;
-  showColors: boolean;
   showGrid: boolean;
   onDownload: () => void;
   onColorCountChange: (value: number) => void;
@@ -28,7 +24,6 @@ type ControlPanelProps = {
   onGridColorChange: (value: string) => void;
   onPixelSizeChange: (value: number) => void;
   onReset: () => void;
-  onShowColorsChange: (value: boolean) => void;
   onShowGridChange: (value: boolean) => void;
 };
 
@@ -39,9 +34,7 @@ export function ControlPanel({
   gridColor,
   hasImage,
   outputInfo,
-  pixelColors,
   pixelSize,
-  showColors,
   showGrid,
   onDownload,
   onColorCountChange,
@@ -50,7 +43,6 @@ export function ControlPanel({
   onGridColorChange,
   onPixelSizeChange,
   onReset,
-  onShowColorsChange,
   onShowGridChange,
 }: ControlPanelProps) {
   return (
@@ -99,14 +91,6 @@ export function ControlPanel({
         onGridColorChange={onGridColorChange}
         onShowGridChange={onShowGridChange}
       />
-
-      <PaletteToggle
-        disabled={!hasImage}
-        showColors={showColors}
-        onShowColorsChange={onShowColorsChange}
-      />
-
-      {showColors && hasImage && <PalettePanel pixelColors={pixelColors} />}
 
       <ControlActions canDownload={hasImage} onDownload={onDownload} onReset={onReset} />
 
