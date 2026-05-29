@@ -133,23 +133,48 @@ h1 {
   font-weight: 750;
 }
 
-.control-heading strong {
+.display-value-button,
+.heading-number-input {
+  width: 68px;
+  min-height: 32px;
+  margin-left: auto;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.display-value-button {
+  padding: 0 8px;
+  color: #111827;
+  background: transparent;
+  cursor: pointer;
+}
+
+.display-value-button:hover,
+.display-value-button:focus-visible {
+  border-color: #b9c5ce;
+  background: #f5f7f8;
+  outline: none;
+}
+
+.heading-number-input {
+  padding: 0 7px;
+  color: #111827;
+  background: #fff;
+  border-color: #9fb0bd;
+}
+
+.heading-number-input:focus {
+  border-color: #227c6d;
+  outline: 3px solid rgba(34, 124, 109, 0.16);
 }
 
 input[type='range'] {
   width: 100%;
   accent-color: #227c6d;
-}
-
-.number-input {
-  width: 100%;
-  min-height: 42px;
-  padding: 0 12px;
-  border: 1px solid #cbd3db;
-  border-radius: 6px;
-  color: #111827;
-  background: #fff;
 }
 
 .control-row {

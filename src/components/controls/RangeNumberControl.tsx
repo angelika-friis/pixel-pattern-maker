@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { clamp } from '../../domain/pixelGrid';
 
@@ -26,6 +27,16 @@ export function RangeNumberControl({
   inputLabel,
   onChange,
 }: RangeNumberControlProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isEditing) {
+      inputRef.current?.focus();
+      inputRef.current?.select();
+    }
+  }, [isEditing]);
+
   const updateClampedValue = (nextValue: number) => {
     onChange(clamp(nextValue || inputMin, inputMin, inputMax));
   };
@@ -35,7 +46,28 @@ export function RangeNumberControl({
       <div className="control-heading">
         <Icon aria-hidden="true" />
         <span>{label}</span>
-        <strong>{displayValue}</strong>
+        {isEditing ? (
+          <input
+            ref={inputRef}
+            className="heading-number-input"
+            type="number"
+            min={inputMin}
+            max={inputMax}
+            value={value}
+            onBlur={() => setIsEditing(false)}
+            onChange={(event) => updateClampedValue(Number(event.target.value))}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === 'Escape') {
+                setIsEditing(false);
+              }
+            }}
+            aria-label={inputLabel}
+          />
+        ) : (
+          <button className="display-value-button" type="button" onClick={() => setIsEditing(true)}>
+            {displayValue}
+          </button>
+        )}
       </div>
       <input
         type="range"
@@ -43,15 +75,6 @@ export function RangeNumberControl({
         max={rangeMax}
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
-      />
-      <input
-        className="number-input"
-        type="number"
-        min={inputMin}
-        max={inputMax}
-        value={value}
-        onChange={(event) => updateClampedValue(Number(event.target.value))}
-        aria-label={inputLabel}
       />
     </div>
   );
