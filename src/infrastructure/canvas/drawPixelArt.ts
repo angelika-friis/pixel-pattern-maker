@@ -1,4 +1,5 @@
 import type { OutputInfo } from '../../domain/pixelGrid';
+import { getColorSelectionImageData } from '../imageProcessing/filterImageDataByColor';
 import { getQuantizedImageData } from '../imageProcessing/quantizeImageData';
 import { drawGridLines } from './drawGridLines';
 
@@ -10,6 +11,7 @@ type DrawPixelArtOptions = {
   colorCount: number;
   showGrid: boolean;
   gridColor: string;
+  selectedColorHexes?: string[];
 };
 
 export function drawPixelArt({
@@ -20,6 +22,7 @@ export function drawPixelArt({
   colorCount,
   showGrid,
   gridColor,
+  selectedColorHexes = [],
 }: DrawPixelArtOptions) {
   const ctx = canvas.getContext('2d');
   if (!ctx) {
@@ -36,6 +39,10 @@ export function drawPixelArt({
   if (!imageData) {
     return;
   }
+  const displayImageData =
+    selectedColorHexes.length > 0
+      ? getColorSelectionImageData(imageData, selectedColorHexes)
+      : imageData;
 
   const sampleCanvas = document.createElement('canvas');
   const sampleCtx = sampleCanvas.getContext('2d');
@@ -45,7 +52,7 @@ export function drawPixelArt({
 
   sampleCanvas.width = cols;
   sampleCanvas.height = rows;
-  sampleCtx.putImageData(imageData, 0, 0);
+  sampleCtx.putImageData(displayImageData, 0, 0);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.imageSmoothingEnabled = false;

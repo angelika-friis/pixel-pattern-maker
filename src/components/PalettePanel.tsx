@@ -4,7 +4,9 @@ import type { PixelColor } from '../domain/pixelGrid';
 type PalettePanelProps = {
   isOpen: boolean;
   pixelColors: PixelColor[];
+  selectedColorHexes: string[];
   onOpenChange: (value: boolean) => void;
+  onColorSelect: (hex: string) => void;
 };
 
 const PALETTE_PREVIEW_LIMIT = 8;
@@ -16,7 +18,13 @@ function getSwatchStyle(hex: string) {
   };
 }
 
-export function PalettePanel({ isOpen, pixelColors, onOpenChange }: PalettePanelProps) {
+export function PalettePanel({
+  isOpen,
+  pixelColors,
+  selectedColorHexes,
+  onOpenChange,
+  onColorSelect,
+}: PalettePanelProps) {
   const previewColors = pixelColors.slice(0, PALETTE_PREVIEW_LIMIT);
   const paletteContentId = 'palette-colors';
 
@@ -56,11 +64,18 @@ export function PalettePanel({ isOpen, pixelColors, onOpenChange }: PalettePanel
       >
         <div className="palette-grid">
           {pixelColors.map((color) => (
-            <div className="palette-item" key={color.hex} title={`${color.hex} (${color.count})`}>
+            <button
+              className="palette-item"
+              key={color.hex}
+              type="button"
+              title={`${color.hex} (${color.count})`}
+              aria-pressed={selectedColorHexes.includes(color.hex)}
+              onClick={() => onColorSelect(color.hex)}
+            >
               <span className="swatch" style={getSwatchStyle(color.hex)} />
               <span>{color.hex}</span>
               <strong>{color.count}</strong>
-            </div>
+            </button>
           ))}
         </div>
       </div>

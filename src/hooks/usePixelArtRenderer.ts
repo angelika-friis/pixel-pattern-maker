@@ -11,6 +11,7 @@ type PixelArtRendererOptions = {
   colorCount: number;
   showGrid: boolean;
   gridColor: string;
+  selectedColorHexes: string[];
 };
 
 export function usePixelArtRenderer({
@@ -21,6 +22,7 @@ export function usePixelArtRenderer({
   colorCount,
   showGrid,
   gridColor,
+  selectedColorHexes,
 }: PixelArtRendererOptions) {
   const renderPixelArt = useCallback(
     (cellSize: number, targetCanvas: HTMLCanvasElement) => {
@@ -36,9 +38,10 @@ export function usePixelArtRenderer({
         colorCount,
         showGrid,
         gridColor,
+        selectedColorHexes,
       });
     },
-    [colorCount, gridColor, image, outputInfo, showGrid],
+    [colorCount, gridColor, image, outputInfo, selectedColorHexes, showGrid],
   );
 
   useEffect(() => {

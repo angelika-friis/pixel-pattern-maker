@@ -9,6 +9,7 @@ type PixelArtPreviewOptions = {
   colorCount: number;
   showGrid: boolean;
   gridColor: string;
+  selectedColorHexes: string[];
 };
 
 export function usePixelArtPreview({
@@ -17,6 +18,7 @@ export function usePixelArtPreview({
   colorCount,
   showGrid,
   gridColor,
+  selectedColorHexes,
 }: PixelArtPreviewOptions) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const previewRef = useRef<HTMLElement | null>(null);
@@ -36,6 +38,7 @@ export function usePixelArtPreview({
     colorCount,
     showGrid,
     gridColor,
+    selectedColorHexes,
   });
 
   return {

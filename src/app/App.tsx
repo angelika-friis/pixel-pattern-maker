@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ControlPanel } from '../components/ControlPanel';
 import { PalettePanel } from '../components/PalettePanel';
 import { PreviewPanel } from '../components/PreviewPanel';
@@ -11,13 +12,24 @@ export function App() {
   const { fileInputRef, fileName, handleDrop, handleFileChange, image, resetImage } =
     useImageUpload();
   const settings = usePixelGridSettings();
+  const { selectedColorHexes, setSelectedColorHexes } = settings;
   const { canvasRef, outputInfo, pixelColors, previewInfo, previewRef } = usePixelArtPreview({
     image,
     pixelSize: settings.pixelSize,
     colorCount: settings.colorCount,
     showGrid: settings.showGrid,
     gridColor: settings.gridColor,
+    selectedColorHexes,
   });
+
+  useEffect(() => {
+    const availableColorHexes = new Set(pixelColors.map((color) => color.hex));
+    const availableSelections = selectedColorHexes.filter((hex) => availableColorHexes.has(hex));
+
+    if (availableSelections.length !== selectedColorHexes.length) {
+      setSelectedColorHexes(availableSelections);
+    }
+  }, [pixelColors, selectedColorHexes, setSelectedColorHexes]);
 
   const downloadPdf = () => {
     if (!image || !outputInfo) {
@@ -75,6 +87,8 @@ export function App() {
           <PalettePanel
             isOpen={settings.showColors}
             pixelColors={pixelColors}
+            selectedColorHexes={selectedColorHexes}
+            onColorSelect={settings.toggleSelectedColorHex}
             onOpenChange={settings.setShowColors}
           />
         )}
