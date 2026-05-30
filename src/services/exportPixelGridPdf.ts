@@ -1,6 +1,6 @@
 import type { OutputInfo, PixelColor } from '../domain/pixelGrid';
+import { createPaletteCanvas } from '../infrastructure/canvas/createPaletteCanvas';
 import { drawPixelArt } from '../infrastructure/canvas/drawPixelArt';
-import { createPaletteCanvas } from '../infrastructure/pdf/createPaletteCanvas';
 import { createMultiPagePdfBlob } from '../infrastructure/pdf/createPdfBlob';
 import { createColorSymbols } from '../infrastructure/pattern/colorSymbols';
 import { createSymbolPatternCanvas } from '../infrastructure/pattern/createSymbolPatternCanvas';

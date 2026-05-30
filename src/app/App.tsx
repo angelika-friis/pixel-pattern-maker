@@ -7,6 +7,7 @@ import { usePixelArtPreview } from '../hooks/usePixelArtPreview';
 import { usePixelGridSettings } from '../hooks/usePixelGridSettings';
 import { downloadBlob } from '../services/downloadFile';
 import { createPixelGridPdfBlob, getPixelGridPdfFileName } from '../services/exportPixelGridPdf';
+import { createPixelGridPngBlob, getPixelGridPngFileName } from '../services/exportPixelGridPng';
 
 export function App() {
   const { fileInputRef, fileName, handleDrop, handleFileChange, image, resetImage } =
@@ -49,6 +50,25 @@ export function App() {
     downloadBlob(pdfBlob, getPixelGridPdfFileName(fileName));
   };
 
+  const downloadPng = async () => {
+    if (!image || !outputInfo || selectedColorHexes.length === 0) {
+      return;
+    }
+
+    const pngBlob = await createPixelGridPngBlob({
+      image,
+      outputInfo,
+      pixelSize: settings.pixelSize,
+      colorCount: settings.colorCount,
+      showGrid: settings.showGrid,
+      gridColor: settings.gridColor,
+      pixelColors,
+      selectedColorHexes,
+    });
+
+    downloadBlob(pngBlob, getPixelGridPngFileName(fileName));
+  };
+
   const reset = () => {
     resetImage();
     settings.resetSettings();
@@ -79,7 +99,9 @@ export function App() {
         </div>
         <PreviewPanel
           canvasRef={canvasRef}
+          canDownloadPng={Boolean(image && selectedColorHexes.length > 0)}
           hasImage={Boolean(image)}
+          onDownloadPng={downloadPng}
           previewInfo={previewInfo}
           previewRef={previewRef}
         />
