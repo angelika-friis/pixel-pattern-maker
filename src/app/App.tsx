@@ -5,6 +5,7 @@ import { PreviewPanel } from '../components/PreviewPanel';
 import { useImageUpload } from '../hooks/useImageUpload';
 import { usePixelArtPreview } from '../hooks/usePixelArtPreview';
 import { usePixelGridSettings } from '../hooks/usePixelGridSettings';
+import { usePreviewZoom } from '../hooks/usePreviewZoom';
 import { downloadBlob } from '../services/downloadFile';
 import { createPixelGridPdfBlob, getPixelGridPdfFileName } from '../services/exportPixelGridPdf';
 import { createPixelGridPngBlob, getPixelGridPngFileName } from '../services/exportPixelGridPng';
@@ -13,6 +14,7 @@ export function App() {
   const { fileInputRef, fileName, handleDrop, handleFileChange, image, resetImage } =
     useImageUpload();
   const settings = usePixelGridSettings();
+  const previewZoom = usePreviewZoom();
   const { selectedColorHexes, setSelectedColorHexes } = settings;
   const { canvasRef, outputInfo, pixelColors, previewInfo, previewRef } = usePixelArtPreview({
     image,
@@ -72,6 +74,7 @@ export function App() {
   const reset = () => {
     resetImage();
     settings.resetSettings();
+    previewZoom.resetPreviewZoom();
   };
 
   return (
@@ -102,8 +105,13 @@ export function App() {
           canDownloadPng={Boolean(image && selectedColorHexes.length > 0)}
           hasImage={Boolean(image)}
           onDownloadPng={downloadPng}
+          onPreviewZoomChange={previewZoom.setPreviewZoom}
+          onPreviewZoomIn={previewZoom.zoomIn}
+          onPreviewZoomOut={previewZoom.zoomOut}
+          onPreviewZoomReset={previewZoom.resetPreviewZoom}
           previewInfo={previewInfo}
           previewRef={previewRef}
+          previewZoom={previewZoom.previewZoom}
         />
         {image && (
           <PalettePanel

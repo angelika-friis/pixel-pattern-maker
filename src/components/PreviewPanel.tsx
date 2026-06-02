@@ -1,14 +1,20 @@
 import type { RefObject } from 'react';
 import { ImageDown, ImagePlus } from 'lucide-react';
 import type { PreviewInfo } from '../domain/pixelGrid';
+import { PreviewZoomControls } from './preview/PreviewZoomControls';
 
 type PreviewPanelProps = {
   canvasRef: RefObject<HTMLCanvasElement | null>;
   canDownloadPng: boolean;
   hasImage: boolean;
   onDownloadPng: () => void;
+  onPreviewZoomChange: (value: number) => void;
+  onPreviewZoomIn: () => void;
+  onPreviewZoomOut: () => void;
+  onPreviewZoomReset: () => void;
   previewInfo: PreviewInfo | null;
   previewRef: RefObject<HTMLElement | null>;
+  previewZoom: number;
 };
 
 export function PreviewPanel({
@@ -16,30 +22,54 @@ export function PreviewPanel({
   canDownloadPng,
   hasImage,
   onDownloadPng,
+  onPreviewZoomChange,
+  onPreviewZoomIn,
+  onPreviewZoomOut,
+  onPreviewZoomReset,
   previewInfo,
   previewRef,
+  previewZoom,
 }: PreviewPanelProps) {
+  const canvasStyle = previewInfo
+    ? {
+        width: `${previewInfo.width * previewZoom}px`,
+        height: `${previewInfo.height * previewZoom}px`,
+      }
+    : undefined;
+  const previewScale = previewInfo ? previewInfo.scale * previewZoom : 1;
+
   return (
     <section ref={previewRef} className="preview" aria-label="Förhandsvisning">
       {hasImage ? (
         <>
+          <PreviewZoomControls
+            zoom={previewZoom}
+            onChange={onPreviewZoomChange}
+            onReset={onPreviewZoomReset}
+            onZoomIn={onPreviewZoomIn}
+            onZoomOut={onPreviewZoomOut}
+          />
           {canDownloadPng && (
             <button type="button" className="preview-download-button" onClick={onDownloadPng}>
               <ImageDown aria-hidden="true" />
               PNG
             </button>
           )}
-          <div className="canvas-stack">
-            <canvas ref={canvasRef} />
-            {previewInfo && previewInfo.scale < 1 && (
-              <span className="zoom-badge">{Math.round(previewInfo.scale * 100)}%</span>
-            )}
+          <div className="canvas-viewport">
+            <div className="canvas-stack">
+              <canvas ref={canvasRef} style={canvasStyle} />
+              {previewInfo && previewScale !== 1 && (
+                <span className="zoom-badge">{Math.round(previewScale * 100)}%</span>
+              )}
+            </div>
           </div>
         </>
       ) : (
-        <div className="empty-state">
-          <ImagePlus aria-hidden="true" />
-          <p>Välj en bild för att skapa pixel art med grid.</p>
+        <div className="canvas-viewport">
+          <div className="empty-state">
+            <ImagePlus aria-hidden="true" />
+            <p>Välj en bild för att skapa pixel art med grid.</p>
+          </div>
         </div>
       )}
     </section>
