@@ -13,6 +13,7 @@ const defaultProps = {
   outputInfo: null,
   pixelSize: 16,
   showGrid: true,
+  themeMode: 'light' as const,
   onDownload: vi.fn(),
   onColorCountChange: vi.fn(),
   onColorSaturationChange: vi.fn(),
@@ -22,6 +23,7 @@ const defaultProps = {
   onPixelSizeChange: vi.fn(),
   onReset: vi.fn(),
   onShowGridChange: vi.fn(),
+  onThemeToggle: vi.fn(),
 };
 
 describe('ControlPanel', () => {
@@ -35,6 +37,7 @@ describe('ControlPanel', () => {
     expect(screen.getByText(/färgmättnad/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/färgmättnad/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/gridfärg/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /byt till mörkt tema/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /pdf/i })).toBeDisabled();
     expect(screen.queryByText(/^grid$/i)).not.toBeInTheDocument();
   });

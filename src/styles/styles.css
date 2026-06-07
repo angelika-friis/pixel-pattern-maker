@@ -1,6 +1,9 @@
+@import './theme/theme.css';
+@import './theme/dark-theme.css';
+
 :root {
-  color: #17202a;
-  background: #eef1f4;
+  color: var(--color-text);
+  background: var(--color-page);
   font-family:
     Inter,
     ui-sans-serif,
@@ -51,15 +54,22 @@ input {
   flex-direction: column;
   gap: 22px;
   padding: 24px;
-  border: 1px solid #d7dde3;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 18px 45px rgba(36, 45, 57, 0.08);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-panel);
+}
+
+.controls-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
 }
 
 .eyebrow {
   margin: 0 0 8px;
-  color: #227c6d;
+  color: var(--color-accent);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -68,10 +78,27 @@ input {
 
 h1 {
   margin: 0;
-  color: #111827;
+  color: var(--color-text-strong);
   font-size: clamp(2rem, 6vw, 3.15rem);
   line-height: 0.98;
   letter-spacing: 0;
+}
+
+.theme-toggle-button {
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-color: var(--color-border-muted);
+  color: var(--color-text);
+  background: var(--color-surface-muted);
+}
+
+.theme-toggle-button:hover,
+.theme-toggle-button:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  outline: none;
 }
 
 .drop-zone {
@@ -81,10 +108,10 @@ h1 {
   gap: 12px;
   min-height: 86px;
   padding: 16px;
-  border: 1px dashed #8794a3;
+  border: 1px dashed var(--color-drop-border);
   border-radius: 8px;
-  color: #303946;
-  background: #f7f9fa;
+  color: var(--color-text-soft);
+  background: var(--color-surface-muted);
   cursor: pointer;
 }
 
@@ -100,7 +127,7 @@ h1 {
 .empty-state svg {
   width: 30px;
   height: 30px;
-  color: #227c6d;
+  color: var(--color-accent);
 }
 
 .drop-zone span {
@@ -125,7 +152,7 @@ h1 {
 .control-heading svg {
   width: 18px;
   height: 18px;
-  color: #227c6d;
+  color: var(--color-accent);
 }
 
 .control-heading span {
@@ -148,33 +175,33 @@ h1 {
 
 .display-value-button {
   padding: 0 8px;
-  color: #111827;
+  color: var(--color-text-strong);
   background: transparent;
   cursor: pointer;
 }
 
 .display-value-button:hover,
 .display-value-button:focus-visible {
-  border-color: #b9c5ce;
-  background: #f5f7f8;
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-hover);
   outline: none;
 }
 
 .heading-number-input {
   padding: 0 7px;
-  color: #111827;
-  background: #fff;
-  border-color: #9fb0bd;
+  color: var(--color-text-strong);
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
 }
 
 .heading-number-input:focus {
-  border-color: #227c6d;
-  outline: 3px solid rgba(34, 124, 109, 0.16);
+  border-color: var(--color-accent);
+  outline: 3px solid var(--color-accent-focus);
 }
 
 input[type='range'] {
   width: 100%;
-  accent-color: #227c6d;
+  accent-color: var(--color-accent);
 }
 
 .control-row {
@@ -197,7 +224,7 @@ input[type='range'] {
 .switch input {
   width: 18px;
   height: 18px;
-  accent-color: #227c6d;
+  accent-color: var(--color-accent);
 }
 
 .switch input:disabled {
@@ -209,10 +236,10 @@ input[type='range'] {
   display: grid;
   gap: 10px;
   padding: 16px;
-  border: 1px solid #d7dde3;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 18px 45px rgba(36, 45, 57, 0.08);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-panel);
 }
 
 .palette-button {
@@ -238,8 +265,8 @@ input[type='range'] {
   min-width: 34px;
   padding: 3px 7px;
   border-radius: 6px;
-  color: #fff;
-  background: #17202a;
+  color: var(--color-inverse-text);
+  background: var(--color-inverse-surface);
   font-size: 0.78rem;
   text-align: center;
 }
@@ -255,7 +282,7 @@ input[type='range'] {
   width: 22px;
   height: 22px;
   margin-left: -7px;
-  box-shadow: 0 0 0 2px #fff;
+  box-shadow: 0 0 0 2px var(--color-surface);
 }
 
 .palette-button-chevron {
@@ -271,9 +298,9 @@ input[type='range'] {
 .palette-content {
   max-height: 0;
   padding: 0 10px;
-  border: 1px solid #d7dde3;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  background: #fff;
+  background: var(--color-surface);
   opacity: 0;
   overflow: hidden;
   transition:
@@ -313,10 +340,10 @@ input[type='range'] {
   width: 100%;
   min-height: 34px;
   padding: 5px 8px;
-  border: 1px solid #d7dde3;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  color: #17202a;
-  background: #f7f9fa;
+  color: var(--color-text);
+  background: var(--color-surface-muted);
   font-size: 0.84rem;
   font-weight: 700;
   text-align: left;
@@ -328,7 +355,7 @@ input[type='range'] {
 }
 
 .palette-item strong {
-  color: #667380;
+  color: var(--color-text-muted);
   font-size: 0.76rem;
   font-variant-numeric: tabular-nums;
 }
@@ -336,25 +363,25 @@ input[type='range'] {
 .palette-item:hover,
 .palette-item:focus-visible,
 .palette-item[aria-pressed='true'] {
-  border-color: #227c6d;
-  background: #edf7f4;
+  border-color: var(--color-accent);
+  background: var(--color-surface-selected);
   outline: none;
 }
 
 .palette-item[aria-pressed='true'] {
-  box-shadow: inset 0 0 0 1px #227c6d;
+  box-shadow: inset 0 0 0 1px var(--color-accent);
 }
 
 .swatch {
   width: 24px;
   height: 24px;
-  border: 1px solid rgba(17, 24, 39, 0.18);
+  border: 1px solid var(--color-swatch-border);
   border-radius: 5px;
   background-image:
-    linear-gradient(45deg, #d7dde3 25%, transparent 25%),
-    linear-gradient(-45deg, #d7dde3 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #d7dde3 75%),
-    linear-gradient(-45deg, transparent 75%, #d7dde3 75%);
+    linear-gradient(45deg, var(--color-checker) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-checker) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-checker) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-checker) 75%);
   background-position:
     0 0,
     0 6px,
@@ -365,7 +392,7 @@ input[type='range'] {
 
 .color-control {
   padding: 5px 8px;
-  border: 1px solid #d7dde3;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 
@@ -394,10 +421,10 @@ button {
   justify-content: center;
   gap: 8px;
   min-height: 44px;
-  border: 1px solid #227c6d;
+  border: 1px solid var(--color-accent);
   border-radius: 6px;
-  color: #fff;
-  background: #227c6d;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
   font-weight: 800;
   cursor: pointer;
 }
@@ -408,15 +435,15 @@ button svg {
 }
 
 button.secondary {
-  border-color: #cbd3db;
-  color: #17202a;
-  background: #fff;
+  border-color: var(--color-border-muted);
+  color: var(--color-text);
+  background: var(--color-surface);
 }
 
 button:disabled {
-  border-color: #bcc6cf;
-  color: #667380;
-  background: #e2e7ec;
+  border-color: var(--color-disabled-border);
+  color: var(--color-disabled-text);
+  background: var(--color-disabled-surface);
   cursor: not-allowed;
 }
 
@@ -429,14 +456,14 @@ button:disabled {
 
 .stats div {
   padding: 12px;
-  border: 1px solid #d7dde3;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: #f7f9fa;
+  background: var(--color-surface-muted);
 }
 
 .stats dt {
   margin-bottom: 4px;
-  color: #667380;
+  color: var(--color-text-muted);
   font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -454,13 +481,14 @@ button:disabled {
   min-height: 0;
   height: calc(100vh - 148px);
   min-height: 520px;
-  border: 1px solid #d7dde3;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   background:
-    linear-gradient(45deg, #dfe5ea 25%, transparent 25%),
-    linear-gradient(-45deg, #dfe5ea 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #dfe5ea 75%),
-    linear-gradient(-45deg, transparent 75%, #dfe5ea 75%), #f8fafb;
+    linear-gradient(45deg, var(--color-checker-soft) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-checker-soft) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-checker-soft) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-checker-soft) 75%),
+    var(--color-preview-base);
   background-position:
     0 0,
     0 10px,
@@ -491,16 +519,16 @@ button:disabled {
   gap: 8px;
   max-width: calc(100% - 32px);
   padding: 8px;
-  border: 1px solid #d7dde3;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 10px 24px rgba(36, 45, 57, 0.14);
+  background: var(--color-overlay-surface);
+  box-shadow: var(--shadow-floating);
 }
 
 .preview-zoom-controls > svg {
   width: 18px;
   height: 18px;
-  color: #227c6d;
+  color: var(--color-accent);
 }
 
 .preview-zoom-controls input[type='range'] {
@@ -516,7 +544,7 @@ button:disabled {
 
 .preview-zoom-value {
   min-width: 44px;
-  color: #17202a;
+  color: var(--color-text);
   font-size: 0.82rem;
   font-weight: 850;
   font-variant-numeric: tabular-nums;
@@ -529,7 +557,7 @@ button:disabled {
   right: 16px;
   z-index: 1;
   min-width: 94px;
-  box-shadow: 0 10px 24px rgba(36, 45, 57, 0.18);
+  box-shadow: var(--shadow-floating-strong);
 }
 
 .canvas-stack {
@@ -542,9 +570,9 @@ button:disabled {
 canvas {
   display: block;
   max-width: none;
-  border: 1px solid rgba(17, 24, 39, 0.16);
-  background: #fff;
-  box-shadow: 0 18px 45px rgba(36, 45, 57, 0.18);
+  border: 1px solid var(--color-canvas-border);
+  background: var(--color-canvas-surface);
+  box-shadow: var(--shadow-canvas);
   image-rendering: pixelated;
 }
 
@@ -554,8 +582,8 @@ canvas {
   bottom: 10px;
   padding: 5px 8px;
   border-radius: 6px;
-  color: #fff;
-  background: rgba(17, 24, 39, 0.78);
+  color: var(--color-inverse-text);
+  background: var(--color-inverse-surface);
   font-size: 0.78rem;
   font-weight: 850;
   font-variant-numeric: tabular-nums;
@@ -567,15 +595,15 @@ canvas {
   gap: 12px;
   width: min(420px, 100%);
   padding: 32px;
-  border: 1px dashed #8794a3;
+  border: 1px dashed var(--color-drop-border);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--color-empty-surface);
   text-align: center;
 }
 
 .empty-state p {
   margin: 0;
-  color: #303946;
+  color: var(--color-text-soft);
   font-weight: 750;
 }
 

@@ -7,11 +7,13 @@ import {
   MIN_COLOR_SATURATION,
 } from '../domain/pixelGrid';
 import type { OutputInfo } from '../domain/pixelGrid';
+import type { ThemeMode } from '../domain/theme';
 import { ControlActions } from './controls/ControlActions';
 import { GridControls } from './controls/GridControls';
 import { ImageDropZone } from './controls/ImageDropZone';
 import { OutputStats } from './controls/OutputStats';
 import { RangeNumberControl } from './controls/RangeNumberControl';
+import { ThemeToggleButton } from './controls/ThemeToggleButton';
 
 type ControlPanelProps = {
   fileName: string;
@@ -23,6 +25,7 @@ type ControlPanelProps = {
   outputInfo: OutputInfo | null;
   pixelSize: number;
   showGrid: boolean;
+  themeMode: ThemeMode;
   onDownload: () => void;
   onColorCountChange: (value: number) => void;
   onColorSaturationChange: (value: number) => void;
@@ -32,6 +35,7 @@ type ControlPanelProps = {
   onPixelSizeChange: (value: number) => void;
   onReset: () => void;
   onShowGridChange: (value: boolean) => void;
+  onThemeToggle: () => void;
 };
 
 export function ControlPanel({
@@ -44,6 +48,7 @@ export function ControlPanel({
   outputInfo,
   pixelSize,
   showGrid,
+  themeMode,
   onDownload,
   onColorCountChange,
   onColorSaturationChange,
@@ -53,12 +58,16 @@ export function ControlPanel({
   onPixelSizeChange,
   onReset,
   onShowGridChange,
+  onThemeToggle,
 }: ControlPanelProps) {
   return (
     <aside className="controls" aria-label="Inställningar">
-      <div>
-        <p className="eyebrow">Pixel Grid</p>
-        <h1>Gör bilder till pixel art</h1>
+      <div className="controls-header">
+        <div>
+          <p className="eyebrow">Pixel Grid</p>
+          <h1>Gör bilder till pixel art</h1>
+        </div>
+        <ThemeToggleButton themeMode={themeMode} onToggle={onThemeToggle} />
       </div>
 
       <ImageDropZone

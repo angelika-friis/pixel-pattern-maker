@@ -6,6 +6,7 @@ import { useImageUpload } from '../hooks/useImageUpload';
 import { usePixelArtPreview } from '../hooks/usePixelArtPreview';
 import { usePixelGridSettings } from '../hooks/usePixelGridSettings';
 import { usePreviewZoom } from '../hooks/usePreviewZoom';
+import { useTheme } from '../hooks/useTheme';
 import { downloadBlob } from '../services/downloadFile';
 import { createPixelGridPdfBlob, getPixelGridPdfFileName } from '../services/exportPixelGridPdf';
 import { createPixelGridPngBlob, getPixelGridPngFileName } from '../services/exportPixelGridPng';
@@ -15,6 +16,7 @@ export function App() {
     useImageUpload();
   const settings = usePixelGridSettings();
   const previewZoom = usePreviewZoom();
+  const theme = useTheme();
   const { selectedColorHexes, setSelectedColorHexes } = settings;
   const { canvasRef, outputInfo, pixelColors, previewInfo, previewRef, processedImageData } =
     usePixelArtPreview({
@@ -91,6 +93,7 @@ export function App() {
             outputInfo={outputInfo}
             pixelSize={settings.pixelSize}
             showGrid={settings.showGrid}
+            themeMode={theme.themeMode}
             onDownload={downloadPdf}
             onFileChange={handleFileChange}
             onFileDrop={handleDrop}
@@ -100,6 +103,7 @@ export function App() {
             onPixelSizeChange={settings.setPixelSize}
             onReset={reset}
             onShowGridChange={settings.setShowGrid}
+            onThemeToggle={theme.toggleThemeMode}
           />
         </div>
         <PreviewPanel
