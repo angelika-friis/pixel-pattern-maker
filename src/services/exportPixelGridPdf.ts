@@ -6,10 +6,9 @@ import { createColorSymbols } from '../infrastructure/pattern/colorSymbols';
 import { createSymbolPatternCanvas } from '../infrastructure/pattern/createSymbolPatternCanvas';
 
 type PixelGridPdfOptions = {
-  image: HTMLImageElement;
+  imageData: ImageData;
   outputInfo: OutputInfo;
   pixelSize: number;
-  colorCount: number;
   showGrid: boolean;
   gridColor: string;
   pixelColors: PixelColor[];
@@ -20,10 +19,9 @@ function getVisiblePixelColors(pixelColors: PixelColor[]) {
 }
 
 export function createPixelGridPdfBlob({
-  image,
+  imageData,
   outputInfo,
   pixelSize,
-  colorCount,
   showGrid,
   gridColor,
   pixelColors,
@@ -34,10 +32,9 @@ export function createPixelGridPdfBlob({
 
   drawPixelArt({
     canvas: exportCanvas,
-    image,
+    imageData,
     outputInfo,
     cellSize: pixelSize,
-    colorCount,
     showGrid,
     gridColor,
   });
@@ -46,10 +43,9 @@ export function createPixelGridPdfBlob({
     exportCanvas,
     createPaletteCanvas(visiblePixelColors),
     createSymbolPatternCanvas({
-      image,
+      imageData,
       outputInfo,
       cellSize: pixelSize,
-      colorCount,
       pixelColors: pixelColorSymbols,
       gridColor,
     }),

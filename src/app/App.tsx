@@ -16,14 +16,16 @@ export function App() {
   const settings = usePixelGridSettings();
   const previewZoom = usePreviewZoom();
   const { selectedColorHexes, setSelectedColorHexes } = settings;
-  const { canvasRef, outputInfo, pixelColors, previewInfo, previewRef } = usePixelArtPreview({
-    image,
-    pixelSize: settings.pixelSize,
-    colorCount: settings.colorCount,
-    showGrid: settings.showGrid,
-    gridColor: settings.gridColor,
-    selectedColorHexes,
-  });
+  const { canvasRef, outputInfo, pixelColors, previewInfo, previewRef, processedImageData } =
+    usePixelArtPreview({
+      image,
+      pixelSize: settings.pixelSize,
+      colorCount: settings.colorCount,
+      colorSaturation: settings.colorSaturation,
+      showGrid: settings.showGrid,
+      gridColor: settings.gridColor,
+      selectedColorHexes,
+    });
 
   useEffect(() => {
     const availableColorHexes = new Set(pixelColors.map((color) => color.hex));
@@ -35,15 +37,14 @@ export function App() {
   }, [pixelColors, selectedColorHexes, setSelectedColorHexes]);
 
   const downloadPdf = () => {
-    if (!image || !outputInfo) {
+    if (!processedImageData || !outputInfo) {
       return;
     }
 
     const pdfBlob = createPixelGridPdfBlob({
-      image,
+      imageData: processedImageData,
       outputInfo,
       pixelSize: settings.pixelSize,
-      colorCount: settings.colorCount,
       showGrid: settings.showGrid,
       gridColor: settings.gridColor,
       pixelColors,
@@ -53,15 +54,14 @@ export function App() {
   };
 
   const downloadPng = async () => {
-    if (!image || !outputInfo || selectedColorHexes.length === 0) {
+    if (!processedImageData || !outputInfo || selectedColorHexes.length === 0) {
       return;
     }
 
     const pngBlob = await createPixelGridPngBlob({
-      image,
+      imageData: processedImageData,
       outputInfo,
       pixelSize: settings.pixelSize,
-      colorCount: settings.colorCount,
       showGrid: settings.showGrid,
       gridColor: settings.gridColor,
       pixelColors,
@@ -85,6 +85,7 @@ export function App() {
             fileName={fileName}
             fileInputRef={fileInputRef}
             colorCount={settings.colorCount}
+            colorSaturation={settings.colorSaturation}
             gridColor={settings.gridColor}
             hasImage={Boolean(image)}
             outputInfo={outputInfo}
@@ -94,6 +95,7 @@ export function App() {
             onFileChange={handleFileChange}
             onFileDrop={handleDrop}
             onColorCountChange={settings.setColorCount}
+            onColorSaturationChange={settings.setColorSaturation}
             onGridColorChange={settings.setGridColor}
             onPixelSizeChange={settings.setPixelSize}
             onReset={reset}

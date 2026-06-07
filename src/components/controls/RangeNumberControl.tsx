@@ -74,6 +74,7 @@ export function RangeNumberControl({
         min={rangeMin}
         max={rangeMax}
         value={value}
+        aria-label={label}
         onChange={(event) => onChange(Number(event.target.value))}
       />
     </div>

@@ -1,17 +1,7 @@
-import type { OutputInfo, PixelColor } from '../../domain/pixelGrid';
+import type { PixelColor } from '../../domain/pixelGrid';
 import { toHex } from './colorValues';
-import { getQuantizedImageData } from './quantizeImageData';
 
-export function getPixelColors(
-  image: HTMLImageElement,
-  outputInfo: OutputInfo,
-  colorCount: number,
-): PixelColor[] {
-  const imageData = getQuantizedImageData(image, outputInfo, colorCount);
-  if (!imageData) {
-    return [];
-  }
-
+export function getPixelColors(imageData: ImageData): PixelColor[] {
   const colors = new Map<string, number>();
 
   for (let index = 0; index < imageData.data.length; index += 4) {

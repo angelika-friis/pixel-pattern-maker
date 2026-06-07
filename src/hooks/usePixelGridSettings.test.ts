@@ -7,7 +7,11 @@
 
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_COLOR_COUNT, DEFAULT_PIXEL_SIZE } from '../domain/pixelGrid';
+import {
+  DEFAULT_COLOR_COUNT,
+  DEFAULT_COLOR_SATURATION,
+  DEFAULT_PIXEL_SIZE,
+} from '../domain/pixelGrid';
 import { usePixelGridSettings } from './usePixelGridSettings';
 
 describe('usePixelGridSettings', () => {
@@ -16,6 +20,7 @@ describe('usePixelGridSettings', () => {
 
     expect(result.current.pixelSize).toBe(DEFAULT_PIXEL_SIZE);
     expect(result.current.colorCount).toBe(DEFAULT_COLOR_COUNT);
+    expect(result.current.colorSaturation).toBe(DEFAULT_COLOR_SATURATION);
     expect(result.current.showGrid).toBe(true);
     expect(result.current.showColors).toBe(false);
     expect(result.current.gridColor).toBe('#424957');
@@ -28,6 +33,7 @@ describe('usePixelGridSettings', () => {
     act(() => {
       result.current.setPixelSize(24);
       result.current.setColorCount(8);
+      result.current.setColorSaturation(140);
       result.current.setShowGrid(false);
       result.current.setShowColors(true);
       result.current.setGridColor('#ffffff');
@@ -35,6 +41,7 @@ describe('usePixelGridSettings', () => {
 
     expect(result.current.pixelSize).toBe(24);
     expect(result.current.colorCount).toBe(8);
+    expect(result.current.colorSaturation).toBe(140);
     expect(result.current.showGrid).toBe(false);
     expect(result.current.showColors).toBe(true);
     expect(result.current.gridColor).toBe('#ffffff');
@@ -73,6 +80,7 @@ describe('usePixelGridSettings', () => {
     act(() => {
       result.current.setPixelSize(24);
       result.current.setColorCount(8);
+      result.current.setColorSaturation(40);
       result.current.setShowGrid(false);
       result.current.setShowColors(true);
       result.current.setGridColor('#ffffff');
@@ -82,6 +90,7 @@ describe('usePixelGridSettings', () => {
 
     expect(result.current.pixelSize).toBe(DEFAULT_PIXEL_SIZE);
     expect(result.current.colorCount).toBe(DEFAULT_COLOR_COUNT);
+    expect(result.current.colorSaturation).toBe(DEFAULT_COLOR_SATURATION);
     expect(result.current.showGrid).toBe(true);
     expect(result.current.showColors).toBe(false);
     expect(result.current.gridColor).toBe('#ffffff');

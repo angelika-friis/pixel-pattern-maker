@@ -2,13 +2,11 @@ import type { OutputInfo } from '../../domain/pixelGrid';
 import { createColorSymbolMap, type PixelColorSymbol } from './colorSymbols';
 import { drawGridLines } from '../canvas/drawGridLines';
 import { toHex } from '../imageProcessing/colorValues';
-import { getQuantizedImageData } from '../imageProcessing/quantizeImageData';
 
 type CreateSymbolPatternCanvasOptions = {
-  image: HTMLImageElement;
+  imageData: ImageData;
   outputInfo: OutputInfo;
   cellSize: number;
-  colorCount: number;
   pixelColors: PixelColorSymbol[];
   gridColor: string;
 };
@@ -27,23 +25,21 @@ function getPixelHex(imageData: ImageData, pixelIndex: number) {
 }
 
 export function createSymbolPatternCanvas({
-  image,
+  imageData,
   outputInfo,
   cellSize,
-  colorCount,
   pixelColors,
   gridColor,
 }: CreateSymbolPatternCanvasOptions) {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  const imageData = getQuantizedImageData(image, outputInfo, colorCount);
   const symbolByColor = createColorSymbolMap(pixelColors);
   const symbolCellSize = Math.max(cellSize, 18);
 
   canvas.width = outputInfo.cols * symbolCellSize;
   canvas.height = outputInfo.rows * symbolCellSize;
 
-  if (!ctx || !imageData) {
+  if (!ctx) {
     return canvas;
   }
 

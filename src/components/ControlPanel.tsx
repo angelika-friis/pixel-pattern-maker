@@ -1,6 +1,11 @@
 import type { ChangeEvent, DragEvent, RefObject } from 'react';
-import { Palette, SlidersHorizontal } from 'lucide-react';
-import { MAX_COLOR_COUNT, MIN_COLOR_COUNT } from '../domain/pixelGrid';
+import { Droplets, Palette, SlidersHorizontal } from 'lucide-react';
+import {
+  MAX_COLOR_COUNT,
+  MAX_COLOR_SATURATION,
+  MIN_COLOR_COUNT,
+  MIN_COLOR_SATURATION,
+} from '../domain/pixelGrid';
 import type { OutputInfo } from '../domain/pixelGrid';
 import { ControlActions } from './controls/ControlActions';
 import { GridControls } from './controls/GridControls';
@@ -12,6 +17,7 @@ type ControlPanelProps = {
   fileName: string;
   fileInputRef: RefObject<HTMLInputElement | null>;
   colorCount: number;
+  colorSaturation: number;
   gridColor: string;
   hasImage: boolean;
   outputInfo: OutputInfo | null;
@@ -19,6 +25,7 @@ type ControlPanelProps = {
   showGrid: boolean;
   onDownload: () => void;
   onColorCountChange: (value: number) => void;
+  onColorSaturationChange: (value: number) => void;
   onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onFileDrop: (event: DragEvent<HTMLLabelElement>) => void;
   onGridColorChange: (value: string) => void;
@@ -31,6 +38,7 @@ export function ControlPanel({
   fileName,
   fileInputRef,
   colorCount,
+  colorSaturation,
   gridColor,
   hasImage,
   outputInfo,
@@ -38,6 +46,7 @@ export function ControlPanel({
   showGrid,
   onDownload,
   onColorCountChange,
+  onColorSaturationChange,
   onFileChange,
   onFileDrop,
   onGridColorChange,
@@ -83,6 +92,19 @@ export function ControlPanel({
         inputMax={MAX_COLOR_COUNT}
         inputLabel="Antal färger i bilden"
         onChange={onColorCountChange}
+      />
+
+      <RangeNumberControl
+        Icon={Droplets}
+        label="Färgmättnad"
+        value={colorSaturation}
+        displayValue={`${colorSaturation}%`}
+        rangeMin={MIN_COLOR_SATURATION}
+        rangeMax={MAX_COLOR_SATURATION}
+        inputMin={MIN_COLOR_SATURATION}
+        inputMax={MAX_COLOR_SATURATION}
+        inputLabel="Färgsaturation i procent"
+        onChange={onColorSaturationChange}
       />
 
       <GridControls

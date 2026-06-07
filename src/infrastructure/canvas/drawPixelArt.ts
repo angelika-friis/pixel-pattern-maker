@@ -1,14 +1,12 @@
 import type { OutputInfo } from '../../domain/pixelGrid';
 import { getColorSelectionImageData } from '../imageProcessing/filterImageDataByColor';
-import { getQuantizedImageData } from '../imageProcessing/quantizeImageData';
 import { drawGridLines } from './drawGridLines';
 
 type DrawPixelArtOptions = {
   canvas: HTMLCanvasElement;
-  image: HTMLImageElement;
+  imageData: ImageData;
   outputInfo: OutputInfo;
   cellSize: number;
-  colorCount: number;
   showGrid: boolean;
   gridColor: string;
   selectedColorHexes?: string[];
@@ -16,10 +14,9 @@ type DrawPixelArtOptions = {
 
 export function drawPixelArt({
   canvas,
-  image,
+  imageData,
   outputInfo,
   cellSize,
-  colorCount,
   showGrid,
   gridColor,
   selectedColorHexes = [],
@@ -35,10 +32,6 @@ export function drawPixelArt({
   canvas.height = targetHeight;
 
   const { cols, rows } = outputInfo;
-  const imageData = getQuantizedImageData(image, outputInfo, colorCount);
-  if (!imageData) {
-    return;
-  }
   const displayImageData =
     selectedColorHexes.length > 0
       ? getColorSelectionImageData(imageData, selectedColorHexes)

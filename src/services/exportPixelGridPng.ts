@@ -3,10 +3,9 @@ import { createPaletteCanvas } from '../infrastructure/canvas/createPaletteCanva
 import { drawPixelArt } from '../infrastructure/canvas/drawPixelArt';
 
 type PixelGridPngOptions = {
-  image: HTMLImageElement;
+  imageData: ImageData;
   outputInfo: OutputInfo;
   pixelSize: number;
-  colorCount: number;
   showGrid: boolean;
   gridColor: string;
   pixelColors: PixelColor[];
@@ -65,10 +64,9 @@ function canvasToPngBlob(canvas: HTMLCanvasElement) {
 }
 
 export function createPixelGridPngBlob({
-  image,
+  imageData,
   outputInfo,
   pixelSize,
-  colorCount,
   showGrid,
   gridColor,
   pixelColors,
@@ -79,10 +77,9 @@ export function createPixelGridPngBlob({
 
   drawPixelArt({
     canvas: pixelArtCanvas,
-    image,
+    imageData,
     outputInfo,
     cellSize: pixelSize,
-    colorCount,
     showGrid,
     gridColor,
     selectedColorHexes,

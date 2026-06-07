@@ -5,10 +5,9 @@ import { drawPixelArt } from '../infrastructure/canvas/drawPixelArt';
 
 type PixelArtRendererOptions = {
   canvasRef: RefObject<HTMLCanvasElement | null>;
-  image: HTMLImageElement | null;
   outputInfo: OutputInfo | null;
+  processedImageData: ImageData | null;
   previewInfo: PreviewInfo | null;
-  colorCount: number;
   showGrid: boolean;
   gridColor: string;
   selectedColorHexes: string[];
@@ -16,32 +15,30 @@ type PixelArtRendererOptions = {
 
 export function usePixelArtRenderer({
   canvasRef,
-  image,
   outputInfo,
+  processedImageData,
   previewInfo,
-  colorCount,
   showGrid,
   gridColor,
   selectedColorHexes,
 }: PixelArtRendererOptions) {
   const renderPixelArt = useCallback(
     (cellSize: number, targetCanvas: HTMLCanvasElement) => {
-      if (!image || !outputInfo) {
+      if (!outputInfo || !processedImageData) {
         return;
       }
 
       drawPixelArt({
         canvas: targetCanvas,
-        image,
+        imageData: processedImageData,
         outputInfo,
         cellSize,
-        colorCount,
         showGrid,
         gridColor,
         selectedColorHexes,
       });
     },
-    [colorCount, gridColor, image, outputInfo, selectedColorHexes, showGrid],
+    [gridColor, outputInfo, processedImageData, selectedColorHexes, showGrid],
   );
 
   useEffect(() => {

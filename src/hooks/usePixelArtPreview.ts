@@ -7,6 +7,7 @@ type PixelArtPreviewOptions = {
   image: HTMLImageElement | null;
   pixelSize: number;
   colorCount: number;
+  colorSaturation: number;
   showGrid: boolean;
   gridColor: string;
   selectedColorHexes: string[];
@@ -16,6 +17,7 @@ export function usePixelArtPreview({
   image,
   pixelSize,
   colorCount,
+  colorSaturation,
   showGrid,
   gridColor,
   selectedColorHexes,
@@ -23,19 +25,19 @@ export function usePixelArtPreview({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const previewRef = useRef<HTMLElement | null>(null);
   const previewBounds = useResizeObserver(previewRef);
-  const { outputInfo, pixelColors, previewInfo } = usePixelGridData({
+  const { outputInfo, pixelColors, previewInfo, processedImageData } = usePixelGridData({
     image,
     pixelSize,
     colorCount,
+    colorSaturation,
     previewBounds,
   });
 
   usePixelArtRenderer({
     canvasRef,
-    image,
     outputInfo,
+    processedImageData,
     previewInfo,
-    colorCount,
     showGrid,
     gridColor,
     selectedColorHexes,
@@ -45,6 +47,7 @@ export function usePixelArtPreview({
     canvasRef,
     outputInfo,
     pixelColors,
+    processedImageData,
     previewInfo,
     previewRef,
   };

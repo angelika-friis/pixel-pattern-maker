@@ -7,6 +7,7 @@ const defaultProps = {
   fileName: '',
   fileInputRef: createRef<HTMLInputElement>(),
   colorCount: 12,
+  colorSaturation: 100,
   gridColor: '#111111',
   hasImage: false,
   outputInfo: null,
@@ -14,6 +15,7 @@ const defaultProps = {
   showGrid: true,
   onDownload: vi.fn(),
   onColorCountChange: vi.fn(),
+  onColorSaturationChange: vi.fn(),
   onFileChange: vi.fn(),
   onFileDrop: vi.fn(),
   onGridColorChange: vi.fn(),
@@ -30,6 +32,8 @@ describe('ControlPanel', () => {
     expect(screen.getByText(/ladda upp eller dra in en bild/i)).toBeInTheDocument();
     expect(screen.getByText(/pixelstorlek/i)).toBeInTheDocument();
     expect(screen.getByText(/antal färger/i)).toBeInTheDocument();
+    expect(screen.getByText(/färgmättnad/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/färgmättnad/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/gridfärg/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /pdf/i })).toBeDisabled();
     expect(screen.queryByText(/^grid$/i)).not.toBeInTheDocument();
