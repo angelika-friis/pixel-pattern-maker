@@ -6,10 +6,14 @@ describe('App', () => {
   it('renders the initial workspace before an image has been uploaded', () => {
     render(<App />);
 
-    expect(screen.getByRole('heading', { name: /gör bilder till pixel art/i })).toBeInTheDocument();
-    expect(screen.getByText(/ladda upp eller dra in en bild/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/förhandsvisning/i)).toBeInTheDocument();
-    expect(screen.getByText(/välj en bild för att skapa pixel art med grid/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/färger i bilden/i)).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /turn you image into a pattern/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/upload or drag in an image/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/preview/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/choose an image to create pixel art with a grid/i),
+    ).toBeInTheDocument();
+    expect(screen.queryByLabelText(/image colors/i)).not.toBeInTheDocument();
   });
 });

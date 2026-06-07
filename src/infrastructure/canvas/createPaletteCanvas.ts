@@ -65,7 +65,7 @@ export function createPaletteCanvas(
   ctx.font = '800 19px Inter, Arial, sans-serif';
   ctx.textBaseline = 'top';
   ctx.fillText(
-    `Palett (${pixelColors.length} ${pixelColors.length === 1 ? 'färg' : 'färger'})`,
+    `Palette (${pixelColors.length} ${pixelColors.length === 1 ? 'color' : 'colors'})`,
     PALETTE_EXPORT_PADDING,
     PALETTE_EXPORT_PADDING,
   );

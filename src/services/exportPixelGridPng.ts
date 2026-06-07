@@ -58,7 +58,7 @@ function canvasToPngBlob(canvas: HTMLCanvasElement) {
         return;
       }
 
-      reject(new Error('Kunde inte skapa PNG från canvas.'));
+      reject(new Error('Could not create PNG from canvas.'));
     }, 'image/png');
   });
 }

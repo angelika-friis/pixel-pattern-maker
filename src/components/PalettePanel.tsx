@@ -24,7 +24,7 @@ export function PalettePanel({
   const selectedColorHexSet = new Set(selectedColorHexes);
 
   return (
-    <section className="palette-panel" aria-label="Färger i bilden">
+    <section className="palette-panel" aria-label="Image colors">
       <PaletteToggleButton
         colorCount={pixelColors.length}
         contentId={PALETTE_CONTENT_ID}

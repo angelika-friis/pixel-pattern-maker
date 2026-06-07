@@ -1,3 +1,3 @@
 # Pixel pattern maker
 
-Jag hittade ingen sida som jag var nöjd med när jag ville konvertera en bild till ett mönster för korsstygn. Därför vill jag med det här projektet utveckla en sida som kan konvertera en bild till ett pixel mönster och senare implementera de extra funktionerna jag saknar.
+I could not find a page I was happy with when I wanted to convert an image into a cross-stitch pattern. With this project, I want to build a page that can convert an image into a pixel pattern and later add the extra features I am missing.

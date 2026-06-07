@@ -18,7 +18,7 @@ export function ImageDropZone({
     <label className="drop-zone" onDragOver={(event) => event.preventDefault()} onDrop={onFileDrop}>
       <input ref={fileInputRef} type="file" accept="image/*" onChange={onFileChange} />
       <ImagePlus aria-hidden="true" />
-      <span>{fileName || 'Ladda upp eller dra in en bild'}</span>
+      <span>{fileName || 'Upload or drag in an image'}</span>
     </label>
   );
 }

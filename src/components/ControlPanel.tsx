@@ -61,11 +61,11 @@ export function ControlPanel({
   onThemeToggle,
 }: ControlPanelProps) {
   return (
-    <aside className="controls" aria-label="Inställningar">
+    <aside className="controls" aria-label="Settings">
       <div className="controls-header">
         <div>
           <p className="eyebrow">Pixel Grid</p>
-          <h1>Gör bilder till pixel art</h1>
+          <h1>Turn your image into a pattern</h1>
         </div>
         <ThemeToggleButton themeMode={themeMode} onToggle={onThemeToggle} />
       </div>
@@ -79,27 +79,27 @@ export function ControlPanel({
 
       <RangeNumberControl
         Icon={SlidersHorizontal}
-        label="Pixelstorlek"
+        label="Pixel size"
         value={pixelSize}
         displayValue={`${pixelSize}px`}
         rangeMin={4}
         rangeMax={64}
         inputMin={2}
         inputMax={128}
-        inputLabel="Pixelstorlek i pixlar"
+        inputLabel="Pixel size in pixels"
         onChange={onPixelSizeChange}
       />
 
       <RangeNumberControl
         Icon={Palette}
-        label="Antal färger"
+        label="Color count"
         value={colorCount}
         displayValue={String(colorCount)}
         rangeMin={MIN_COLOR_COUNT}
         rangeMax={MAX_COLOR_COUNT}
         inputMin={MIN_COLOR_COUNT}
         inputMax={MAX_COLOR_COUNT}
-        inputLabel="Antal färger i bilden"
+        inputLabel="Number of colors in the image"
         onChange={onColorCountChange}
       />
 

@@ -39,7 +39,7 @@ export function PreviewPanel({
   const previewScale = previewInfo ? previewInfo.scale : 1;
 
   return (
-    <section ref={previewRef} className="preview" aria-label="Förhandsvisning">
+    <section ref={previewRef} className="preview" aria-label="Preview">
       {hasImage ? (
         <>
           <PreviewZoomControls
@@ -68,7 +68,7 @@ export function PreviewPanel({
         <div className="canvas-viewport">
           <div className="empty-state">
             <ImagePlus aria-hidden="true" />
-            <p>Välj en bild för att skapa pixel art med grid.</p>
+            <p>Choose an image to create pixel art with a grid.</p>
           </div>
         </div>
       )}

@@ -33,15 +33,15 @@ describe('ControlPanel', () => {
   it('renders upload and grid controls before an image has been uploaded', () => {
     render(<ControlPanel {...defaultProps} />);
 
-    expect(screen.getByLabelText(/inställningar/i)).toBeInTheDocument();
-    expect(screen.getByText(/ladda upp eller dra in en bild/i)).toBeInTheDocument();
-    expect(screen.getByText(/pixelstorlek/i)).toBeInTheDocument();
-    expect(screen.getByText(/antal färger/i)).toBeInTheDocument();
-    expect(screen.getByText(/redigera bild/i)).toBeInTheDocument();
-    expect(screen.queryByText(/färgmättnad/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/kontrast/i)).not.toBeInTheDocument();
-    expect(screen.getByLabelText(/gridfärg/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /byt till mörkt tema/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/settings/i)).toBeInTheDocument();
+    expect(screen.getByText(/upload or drag in an image/i)).toBeInTheDocument();
+    expect(screen.getByText(/pixel size/i)).toBeInTheDocument();
+    expect(screen.getByText(/color count/i)).toBeInTheDocument();
+    expect(screen.getByText(/edit image/i)).toBeInTheDocument();
+    expect(screen.queryByText(/saturation/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/contrast/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/grid color/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /switch to dark theme/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /pdf/i })).toBeDisabled();
     expect(screen.queryByText(/^grid$/i)).not.toBeInTheDocument();
   });
@@ -50,13 +50,13 @@ describe('ControlPanel', () => {
     render(
       <ControlPanel
         {...defaultProps}
-        fileName="bild.png"
+        fileName="image.png"
         hasImage
         outputInfo={{ cols: 8, rows: 6, width: 128, height: 96 }}
       />,
     );
 
-    expect(screen.getByText('bild.png')).toBeInTheDocument();
+    expect(screen.getByText('image.png')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /pdf/i })).toBeEnabled();
     expect(screen.getByText('8 x 6')).toBeInTheDocument();
     expect(screen.getByText('128 x 96px')).toBeInTheDocument();
@@ -67,9 +67,9 @@ describe('ControlPanel', () => {
 
     render(<ControlPanel {...defaultProps} />);
 
-    await user.click(screen.getByRole('button', { name: /redigera bild/i }));
+    await user.click(screen.getByRole('button', { name: /edit image/i }));
 
-    expect(screen.getByLabelText(/färgmättnad/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/kontrast/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/saturation/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/contrast/i)).toBeInTheDocument();
   });
 });

@@ -14,7 +14,7 @@ export function OutputStats({ outputInfo }: OutputStatsProps) {
         </dd>
       </div>
       <div>
-        <dt>Bild</dt>
+        <dt>Image</dt>
         <dd>
           {outputInfo.width} x {outputInfo.height}px
         </dd>

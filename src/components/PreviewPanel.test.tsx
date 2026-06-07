@@ -21,9 +21,11 @@ describe('PreviewPanel', () => {
   it('renders the empty state before an image has been uploaded', () => {
     render(<PreviewPanel {...defaultProps} />);
 
-    expect(screen.getByLabelText(/förhandsvisning/i)).toBeInTheDocument();
-    expect(screen.getByText(/välj en bild för att skapa pixel art med grid/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/zooma förhandsvisning/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/preview/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/choose an image to create pixel art with a grid/i),
+    ).toBeInTheDocument();
+    expect(screen.queryByLabelText(/zoom preview/i)).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /png/i })).not.toBeInTheDocument();
   });
 
@@ -37,8 +39,8 @@ describe('PreviewPanel', () => {
       />,
     );
 
-    expect(screen.getByLabelText(/zooma förhandsvisning/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/zoomnivå/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/zoom preview/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/zoom level/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /png/i })).toBeInTheDocument();
   });
 });

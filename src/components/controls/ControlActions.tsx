@@ -15,7 +15,7 @@ export function ControlActions({ canDownload, onDownload, onReset }: ControlActi
       </button>
       <button type="button" className="secondary" onClick={onReset}>
         <RotateCcw aria-hidden="true" />
-        Återställ
+        Reset
       </button>
     </div>
   );

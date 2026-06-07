@@ -24,14 +24,14 @@ export function PreviewZoomControls({
   const zoomPercent = Math.round(zoom * 100);
 
   return (
-    <div className="preview-zoom-controls" aria-label="Zooma förhandsvisning">
+    <div className="preview-zoom-controls" aria-label="Zoom preview">
       <ZoomIn aria-hidden="true" />
       <button
         type="button"
         className="icon-button"
         onClick={onZoomOut}
         disabled={zoom <= MIN_PREVIEW_ZOOM}
-        aria-label="Zooma ut"
+        aria-label="Zoom out"
       >
         <Minus aria-hidden="true" />
       </button>
@@ -42,14 +42,14 @@ export function PreviewZoomControls({
         step={PREVIEW_ZOOM_STEP}
         value={zoom}
         onChange={(event) => onChange(Number(event.target.value))}
-        aria-label="Zoomnivå"
+        aria-label="Zoom level"
       />
       <button
         type="button"
         className="icon-button"
         onClick={onZoomIn}
         disabled={zoom >= MAX_PREVIEW_ZOOM}
-        aria-label="Zooma in"
+        aria-label="Zoom in"
       >
         <Plus aria-hidden="true" />
       </button>
@@ -58,7 +58,7 @@ export function PreviewZoomControls({
         className="icon-button"
         onClick={onReset}
         disabled={zoom === DEFAULT_PREVIEW_ZOOM}
-        aria-label="Återställ zoom"
+        aria-label="Reset zoom"
       >
         <RotateCcw aria-hidden="true" />
       </button>

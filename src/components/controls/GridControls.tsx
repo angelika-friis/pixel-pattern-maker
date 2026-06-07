@@ -21,16 +21,16 @@ export function GridControls({
           checked={showGrid}
           onChange={(event) => onShowGridChange(event.target.checked)}
         />
-        <span>Visa grid</span>
+        <span>Show grid</span>
       </label>
 
-      <label className="color-control" title="Gridfärg">
+      <label className="color-control" title="Grid color">
         <Grid3X3 aria-hidden="true" />
         <input
           type="color"
           value={gridColor}
           onChange={(event) => onGridColorChange(event.target.value)}
-          aria-label="Gridfärg"
+          aria-label="Grid color"
         />
       </label>
     </div>

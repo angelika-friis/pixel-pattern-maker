@@ -19,8 +19,8 @@ describe('PalettePanel', () => {
       />,
     );
 
-    expect(screen.getByLabelText(/färger i bilden/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /färger2/i })).toHaveAttribute(
+    expect(screen.getByLabelText(/image colors/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /colors2/i })).toHaveAttribute(
       'aria-expanded',
       'true',
     );

@@ -9,7 +9,7 @@ type ThemeToggleButtonProps = {
 export function ThemeToggleButton({ themeMode, onToggle }: ThemeToggleButtonProps) {
   const isDarkTheme = themeMode === 'dark';
   const Icon = isDarkTheme ? Sun : Moon;
-  const label = isDarkTheme ? 'Byt till ljust tema' : 'Byt till mörkt tema';
+  const label = isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme';
 
   return (
     <button

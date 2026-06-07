@@ -27,7 +27,7 @@ export function PaletteToggleButton({
     >
       <span className="palette-button-label">
         <Palette aria-hidden="true" />
-        <span>Färger</span>
+        <span>Colors</span>
         <strong>{colorCount}</strong>
       </span>
 

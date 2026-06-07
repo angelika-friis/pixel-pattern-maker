@@ -24,14 +24,14 @@ export function ImageAdjustmentControls({
   const [isEditingImage, setIsEditingImage] = useState(false);
 
   return (
-    <section className="image-adjustment-controls" aria-label="Bildredigering">
+    <section className="image-adjustment-controls" aria-label="Image editing">
       <button
         className="image-adjustment-toggle"
         type="button"
         aria-expanded={isEditingImage}
         onClick={() => setIsEditingImage((currentValue) => !currentValue)}
       >
-        <span>Redigera bild</span>
+        <span>Edit image</span>
         <ChevronDown aria-hidden="true" />
       </button>
 
@@ -39,27 +39,27 @@ export function ImageAdjustmentControls({
         <div className="image-adjustment-stack">
           <RangeNumberControl
             Icon={Droplets}
-            label="Färgmättnad"
+            label="Saturation"
             value={colorSaturation}
             displayValue={`${colorSaturation}%`}
             rangeMin={MIN_COLOR_SATURATION}
             rangeMax={MAX_COLOR_SATURATION}
             inputMin={MIN_COLOR_SATURATION}
             inputMax={MAX_COLOR_SATURATION}
-            inputLabel="Färgsaturation i procent"
+            inputLabel="Color saturation percentage"
             onChange={onColorSaturationChange}
           />
 
           <RangeNumberControl
             Icon={Contrast}
-            label="Kontrast"
+            label="Contrast"
             value={imageContrast}
             displayValue={`${imageContrast}%`}
             rangeMin={MIN_IMAGE_CONTRAST}
             rangeMax={MAX_IMAGE_CONTRAST}
             inputMin={MIN_IMAGE_CONTRAST}
             inputMax={MAX_IMAGE_CONTRAST}
-            inputLabel="Bildkontrast i procent"
+            inputLabel="Image contrast percentage"
             onChange={onImageContrastChange}
           />
         </div>
