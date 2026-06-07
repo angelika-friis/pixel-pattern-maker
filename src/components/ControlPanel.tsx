@@ -1,16 +1,12 @@
 import type { ChangeEvent, DragEvent, RefObject } from 'react';
-import { Droplets, Palette, SlidersHorizontal } from 'lucide-react';
-import {
-  MAX_COLOR_COUNT,
-  MAX_COLOR_SATURATION,
-  MIN_COLOR_COUNT,
-  MIN_COLOR_SATURATION,
-} from '../domain/pixelGrid';
+import { Palette, SlidersHorizontal } from 'lucide-react';
+import { MAX_COLOR_COUNT, MIN_COLOR_COUNT } from '../domain/pixelGrid';
 import type { OutputInfo } from '../domain/pixelGrid';
 import type { ThemeMode } from '../domain/theme';
 import { ControlActions } from './controls/ControlActions';
 import { GridControls } from './controls/GridControls';
 import { ImageDropZone } from './controls/ImageDropZone';
+import { ImageAdjustmentControls } from './controls/ImageAdjustmentControls';
 import { OutputStats } from './controls/OutputStats';
 import { RangeNumberControl } from './controls/RangeNumberControl';
 import { ThemeToggleButton } from './controls/ThemeToggleButton';
@@ -22,6 +18,7 @@ type ControlPanelProps = {
   colorSaturation: number;
   gridColor: string;
   hasImage: boolean;
+  imageContrast: number;
   outputInfo: OutputInfo | null;
   pixelSize: number;
   showGrid: boolean;
@@ -32,6 +29,7 @@ type ControlPanelProps = {
   onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onFileDrop: (event: DragEvent<HTMLLabelElement>) => void;
   onGridColorChange: (value: string) => void;
+  onImageContrastChange: (value: number) => void;
   onPixelSizeChange: (value: number) => void;
   onReset: () => void;
   onShowGridChange: (value: boolean) => void;
@@ -45,6 +43,7 @@ export function ControlPanel({
   colorSaturation,
   gridColor,
   hasImage,
+  imageContrast,
   outputInfo,
   pixelSize,
   showGrid,
@@ -55,6 +54,7 @@ export function ControlPanel({
   onFileChange,
   onFileDrop,
   onGridColorChange,
+  onImageContrastChange,
   onPixelSizeChange,
   onReset,
   onShowGridChange,
@@ -103,17 +103,11 @@ export function ControlPanel({
         onChange={onColorCountChange}
       />
 
-      <RangeNumberControl
-        Icon={Droplets}
-        label="Färgmättnad"
-        value={colorSaturation}
-        displayValue={`${colorSaturation}%`}
-        rangeMin={MIN_COLOR_SATURATION}
-        rangeMax={MAX_COLOR_SATURATION}
-        inputMin={MIN_COLOR_SATURATION}
-        inputMax={MAX_COLOR_SATURATION}
-        inputLabel="Färgsaturation i procent"
-        onChange={onColorSaturationChange}
+      <ImageAdjustmentControls
+        colorSaturation={colorSaturation}
+        imageContrast={imageContrast}
+        onColorSaturationChange={onColorSaturationChange}
+        onImageContrastChange={onImageContrastChange}
       />
 
       <GridControls

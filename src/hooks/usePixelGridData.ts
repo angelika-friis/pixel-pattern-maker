@@ -9,6 +9,7 @@ type PixelGridDataOptions = {
   pixelSize: number;
   colorCount: number;
   colorSaturation: number;
+  imageContrast: number;
   previewBounds: PreviewBounds;
 };
 
@@ -17,6 +18,7 @@ export function usePixelGridData({
   pixelSize,
   colorCount,
   colorSaturation,
+  imageContrast,
   previewBounds,
 }: PixelGridDataOptions) {
   const outputInfo = useMemo(() => {
@@ -34,9 +36,10 @@ export function usePixelGridData({
           outputInfo,
           colorCount,
           colorSaturation,
+          imageContrast,
         })
       : null;
-  }, [colorCount, colorSaturation, image, outputInfo]);
+  }, [colorCount, colorSaturation, image, imageContrast, outputInfo]);
 
   const pixelColors = useMemo(() => {
     return processedImageData ? getPixelColors(processedImageData) : [];

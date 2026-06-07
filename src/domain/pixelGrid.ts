@@ -1,6 +1,7 @@
 export const DEFAULT_PIXEL_SIZE = 12;
 export const DEFAULT_COLOR_COUNT = 16;
 export const DEFAULT_COLOR_SATURATION = 100;
+export const DEFAULT_IMAGE_CONTRAST = 100;
 export const DEFAULT_PREVIEW_ZOOM = 1;
 export const MIN_PREVIEW_ZOOM = 1;
 export const MAX_PREVIEW_ZOOM = 4;
@@ -9,6 +10,8 @@ export const MIN_COLOR_COUNT = 2;
 export const MAX_COLOR_COUNT = 64;
 export const MIN_COLOR_SATURATION = 0;
 export const MAX_COLOR_SATURATION = 200;
+export const MIN_IMAGE_CONTRAST = 0;
+export const MAX_IMAGE_CONTRAST = 200;
 export const MAX_CANVAS_EDGE = 1600;
 
 export type ImageSize = {

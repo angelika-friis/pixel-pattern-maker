@@ -1,5 +1,6 @@
 import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { ControlPanel } from './ControlPanel';
 
@@ -10,6 +11,7 @@ const defaultProps = {
   colorSaturation: 100,
   gridColor: '#111111',
   hasImage: false,
+  imageContrast: 100,
   outputInfo: null,
   pixelSize: 16,
   showGrid: true,
@@ -20,6 +22,7 @@ const defaultProps = {
   onFileChange: vi.fn(),
   onFileDrop: vi.fn(),
   onGridColorChange: vi.fn(),
+  onImageContrastChange: vi.fn(),
   onPixelSizeChange: vi.fn(),
   onReset: vi.fn(),
   onShowGridChange: vi.fn(),
@@ -34,8 +37,9 @@ describe('ControlPanel', () => {
     expect(screen.getByText(/ladda upp eller dra in en bild/i)).toBeInTheDocument();
     expect(screen.getByText(/pixelstorlek/i)).toBeInTheDocument();
     expect(screen.getByText(/antal färger/i)).toBeInTheDocument();
-    expect(screen.getByText(/färgmättnad/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/färgmättnad/i)).toBeInTheDocument();
+    expect(screen.getByText(/redigera bild/i)).toBeInTheDocument();
+    expect(screen.queryByText(/färgmättnad/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/kontrast/i)).not.toBeInTheDocument();
     expect(screen.getByLabelText(/gridfärg/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /byt till mörkt tema/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /pdf/i })).toBeDisabled();
@@ -56,5 +60,16 @@ describe('ControlPanel', () => {
     expect(screen.getByRole('button', { name: /pdf/i })).toBeEnabled();
     expect(screen.getByText('8 x 6')).toBeInTheDocument();
     expect(screen.getByText('128 x 96px')).toBeInTheDocument();
+  });
+
+  it('shows image adjustment controls behind the edit image toggle', async () => {
+    const user = userEvent.setup();
+
+    render(<ControlPanel {...defaultProps} />);
+
+    await user.click(screen.getByRole('button', { name: /redigera bild/i }));
+
+    expect(screen.getByLabelText(/färgmättnad/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/kontrast/i)).toBeInTheDocument();
   });
 });

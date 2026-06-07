@@ -141,6 +141,49 @@ h1 {
   gap: 12px;
 }
 
+.image-adjustment-controls {
+  display: grid;
+  gap: 14px;
+}
+
+.image-adjustment-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.image-adjustment-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  color: var(--color-text-strong);
+  background: transparent;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.image-adjustment-toggle svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent);
+  transition: transform 160ms ease;
+}
+
+.image-adjustment-toggle[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.image-adjustment-toggle:focus-visible {
+  border-radius: 6px;
+  outline: 3px solid var(--color-accent-focus);
+  outline-offset: 3px;
+}
+
 .control-heading,
 .control-row,
 .action-row {

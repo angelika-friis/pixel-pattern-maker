@@ -9,6 +9,7 @@ type PixelArtPreviewOptions = {
   pixelSize: number;
   colorCount: number;
   colorSaturation: number;
+  imageContrast: number;
   showGrid: boolean;
   gridColor: string;
   previewZoom: number;
@@ -20,6 +21,7 @@ export function usePixelArtPreview({
   pixelSize,
   colorCount,
   colorSaturation,
+  imageContrast,
   showGrid,
   gridColor,
   previewZoom,
@@ -33,6 +35,7 @@ export function usePixelArtPreview({
     pixelSize,
     colorCount,
     colorSaturation,
+    imageContrast,
     previewBounds,
   });
   const zoomedPreviewInfo = previewInfo ? getZoomedPreviewInfo(previewInfo, previewZoom) : null;

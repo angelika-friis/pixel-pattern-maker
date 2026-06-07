@@ -24,6 +24,7 @@ export function App() {
       pixelSize: settings.pixelSize,
       colorCount: settings.colorCount,
       colorSaturation: settings.colorSaturation,
+      imageContrast: settings.imageContrast,
       showGrid: settings.showGrid,
       gridColor: settings.gridColor,
       previewZoom: previewZoom.previewZoom,
@@ -91,6 +92,7 @@ export function App() {
             colorSaturation={settings.colorSaturation}
             gridColor={settings.gridColor}
             hasImage={Boolean(image)}
+            imageContrast={settings.imageContrast}
             outputInfo={outputInfo}
             pixelSize={settings.pixelSize}
             showGrid={settings.showGrid}
@@ -101,6 +103,7 @@ export function App() {
             onColorCountChange={settings.setColorCount}
             onColorSaturationChange={settings.setColorSaturation}
             onGridColorChange={settings.setGridColor}
+            onImageContrastChange={settings.setImageContrast}
             onPixelSizeChange={settings.setPixelSize}
             onReset={reset}
             onShowGridChange={settings.setShowGrid}

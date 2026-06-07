@@ -1,4 +1,5 @@
 import type { OutputInfo } from '../../domain/pixelGrid';
+import { adjustImageDataContrast } from './adjustImageDataContrast';
 import { adjustImageDataSaturation } from './adjustImageDataSaturation';
 import { getQuantizedImageData } from './quantizeImageData';
 
@@ -7,6 +8,7 @@ type ProcessedPixelGridImageDataOptions = {
   outputInfo: OutputInfo;
   colorCount: number;
   colorSaturation: number;
+  imageContrast: number;
 };
 
 export function getProcessedPixelGridImageData({
@@ -14,8 +16,15 @@ export function getProcessedPixelGridImageData({
   outputInfo,
   colorCount,
   colorSaturation,
+  imageContrast,
 }: ProcessedPixelGridImageDataOptions) {
   const imageData = getQuantizedImageData(image, outputInfo, colorCount);
 
-  return imageData ? adjustImageDataSaturation(imageData, colorSaturation) : null;
+  if (!imageData) {
+    return null;
+  }
+
+  adjustImageDataSaturation(imageData, colorSaturation);
+
+  return adjustImageDataContrast(imageData, imageContrast);
 }
