@@ -84,3 +84,16 @@ export function getPreviewInfo(
     scale: cellSize / pixelSize,
   };
 }
+
+export function getZoomedPreviewInfo(previewInfo: PreviewInfo, zoom: number): PreviewInfo {
+  const cellSize = Math.max(1, Math.round(previewInfo.cellSize * zoom));
+  const cols = previewInfo.width / previewInfo.cellSize;
+  const rows = previewInfo.height / previewInfo.cellSize;
+
+  return {
+    cellSize,
+    width: cols * cellSize,
+    height: rows * cellSize,
+    scale: previewInfo.scale * (cellSize / previewInfo.cellSize),
+  };
+}

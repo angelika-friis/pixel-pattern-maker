@@ -8,23 +8,19 @@ type DrawGridLinesOptions = {
 
 export function drawGridLines({ ctx, width, height, cellSize, gridColor }: DrawGridLinesOptions) {
   ctx.save();
-  ctx.strokeStyle = gridColor;
+  ctx.fillStyle = gridColor;
   ctx.globalAlpha = 0.42;
-  ctx.lineWidth = 1;
 
-  for (let x = 0; x <= width; x += cellSize) {
-    ctx.beginPath();
-    ctx.moveTo(x + 0.5, 0);
-    ctx.lineTo(x + 0.5, height);
-    ctx.stroke();
+  for (let x = 0; x < width; x += cellSize) {
+    ctx.fillRect(x, 0, 1, height);
   }
 
-  for (let y = 0; y <= height; y += cellSize) {
-    ctx.beginPath();
-    ctx.moveTo(0, y + 0.5);
-    ctx.lineTo(width, y + 0.5);
-    ctx.stroke();
+  for (let y = 0; y < height; y += cellSize) {
+    ctx.fillRect(0, y, width, 1);
   }
+
+  ctx.fillRect(width - 1, 0, 1, height);
+  ctx.fillRect(0, height - 1, width, 1);
 
   ctx.restore();
 }

@@ -32,11 +32,11 @@ export function PreviewPanel({
 }: PreviewPanelProps) {
   const canvasStyle = previewInfo
     ? {
-        width: `${previewInfo.width * previewZoom}px`,
-        height: `${previewInfo.height * previewZoom}px`,
+        width: `${previewInfo.width}px`,
+        height: `${previewInfo.height}px`,
       }
     : undefined;
-  const previewScale = previewInfo ? previewInfo.scale * previewZoom : 1;
+  const previewScale = previewInfo ? previewInfo.scale : 1;
 
   return (
     <section ref={previewRef} className="preview" aria-label="Förhandsvisning">

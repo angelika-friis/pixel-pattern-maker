@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { getZoomedPreviewInfo } from '../domain/pixelGrid';
 import { usePixelArtRenderer } from './usePixelArtRenderer';
 import { usePixelGridData } from './usePixelGridData';
 import { useResizeObserver } from './useResizeObserver';
@@ -10,6 +11,7 @@ type PixelArtPreviewOptions = {
   colorSaturation: number;
   showGrid: boolean;
   gridColor: string;
+  previewZoom: number;
   selectedColorHexes: string[];
 };
 
@@ -20,6 +22,7 @@ export function usePixelArtPreview({
   colorSaturation,
   showGrid,
   gridColor,
+  previewZoom,
   selectedColorHexes,
 }: PixelArtPreviewOptions) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -32,12 +35,13 @@ export function usePixelArtPreview({
     colorSaturation,
     previewBounds,
   });
+  const zoomedPreviewInfo = previewInfo ? getZoomedPreviewInfo(previewInfo, previewZoom) : null;
 
   usePixelArtRenderer({
     canvasRef,
     outputInfo,
     processedImageData,
-    previewInfo,
+    previewInfo: zoomedPreviewInfo,
     showGrid,
     gridColor,
     selectedColorHexes,
@@ -48,7 +52,7 @@ export function usePixelArtPreview({
     outputInfo,
     pixelColors,
     processedImageData,
-    previewInfo,
+    previewInfo: zoomedPreviewInfo,
     previewRef,
   };
 }

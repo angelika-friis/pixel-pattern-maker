@@ -26,6 +26,7 @@ export function App() {
       colorSaturation: settings.colorSaturation,
       showGrid: settings.showGrid,
       gridColor: settings.gridColor,
+      previewZoom: previewZoom.previewZoom,
       selectedColorHexes,
     });
 
