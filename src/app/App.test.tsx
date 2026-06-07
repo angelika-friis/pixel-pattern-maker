@@ -7,7 +7,7 @@ describe('App', () => {
     render(<App />);
 
     expect(
-      screen.getByRole('heading', { name: /turn you image into a pattern/i }),
+      screen.getByRole('heading', { name: /turn your image into a pattern/i }),
     ).toBeInTheDocument();
     expect(screen.getByText(/upload or drag in an image/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/preview/i)).toBeInTheDocument();
