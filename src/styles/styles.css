@@ -49,6 +49,13 @@ input {
   gap: 14px;
 }
 
+.preview-stack {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
 .controls {
   display: flex;
   flex-direction: column;
@@ -275,7 +282,6 @@ input[type='range'] {
 }
 
 .palette-panel {
-  grid-column: 1 / -1;
   display: grid;
   gap: 10px;
   padding: 16px;

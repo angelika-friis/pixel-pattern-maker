@@ -11,8 +11,10 @@ export function HomePage() {
       <div className="control-stack">
         <ControlPanel {...controlPanelProps} />
       </div>
-      <PreviewPanel {...previewPanelProps} />
-      {palettePanelProps && <PalettePanel {...palettePanelProps} />}
+      <div className="preview-stack">
+        <PreviewPanel {...previewPanelProps} />
+        {palettePanelProps && <PalettePanel {...palettePanelProps} />}
+      </div>
     </section>
   );
 }
