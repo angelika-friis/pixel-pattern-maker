@@ -1,0 +1,16 @@
+.theme-toggle-button {
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-color: var(--color-border-muted);
+  color: var(--color-text);
+  background: var(--color-surface-muted);
+}
+
+.button:hover,
+.button:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  outline: none;
+}

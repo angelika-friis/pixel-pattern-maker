@@ -7,6 +7,7 @@ import {
   MIN_IMAGE_CONTRAST,
 } from '../../domain/pixelGrid';
 import { RangeNumberControl } from './RangeNumberControl';
+import styles from './ImageAdjustmentControls.module.css';
 
 type ImageAdjustmentControlsProps = {
   colorSaturation: number;
@@ -24,9 +25,9 @@ export function ImageAdjustmentControls({
   const [isEditingImage, setIsEditingImage] = useState(false);
 
   return (
-    <section className="image-adjustment-controls" aria-label="Image editing">
+    <section className={styles['image-adjustment-controls']} aria-label="Image editing">
       <button
-        className="image-adjustment-toggle"
+        className={styles['image-adjustment-toggle']}
         type="button"
         aria-expanded={isEditingImage}
         onClick={() => setIsEditingImage((currentValue) => !currentValue)}
@@ -36,7 +37,7 @@ export function ImageAdjustmentControls({
       </button>
 
       {isEditingImage && (
-        <div className="image-adjustment-stack">
+        <div className={styles['image-adjustment-stack']}>
           <RangeNumberControl
             Icon={Droplets}
             label="Saturation"

@@ -10,6 +10,7 @@ import { ImageAdjustmentControls } from './controls/ImageAdjustmentControls';
 import { OutputStats } from './controls/OutputStats';
 import { RangeNumberControl } from './controls/RangeNumberControl';
 import { ThemeToggleButton } from './controls/ThemeToggleButton';
+import styles from './ControlPanel.module.css';
 
 type ControlPanelProps = {
   fileName: string;
@@ -61,11 +62,11 @@ export function ControlPanel({
   onThemeToggle,
 }: ControlPanelProps) {
   return (
-    <aside className="controls" aria-label="Settings">
-      <div className="controls-header">
+    <aside className={styles.controls} aria-label="Settings">
+      <div className={styles['controls-header']}>
         <div>
-          <p className="eyebrow">Pixel Grid</p>
-          <h1>Turn your image into a pattern</h1>
+          <p className={styles.eyebrow}>Pixel Grid</p>
+          <h1 className={styles['controls-title']}>Turn your image into a pattern</h1>
         </div>
         <ThemeToggleButton themeMode={themeMode} onToggle={onThemeToggle} />
       </div>

@@ -1,7 +1,9 @@
 import type { RefObject } from 'react';
 import { ImageDown, ImagePlus } from 'lucide-react';
 import type { PreviewInfo } from '../domain/pixelGrid';
+import buttonStyles from '../styles/shared/button.module.css';
 import { PreviewZoomControls } from './preview/PreviewZoomControls';
+import styles from './PreviewPanel.module.css';
 
 type PreviewPanelProps = {
   canvasRef: RefObject<HTMLCanvasElement | null>;
@@ -39,7 +41,7 @@ export function PreviewPanel({
   const previewScale = previewInfo ? previewInfo.scale : 1;
 
   return (
-    <section ref={previewRef} className="preview" aria-label="Preview">
+    <section ref={previewRef} className={styles.preview} aria-label="Preview">
       {hasImage ? (
         <>
           <PreviewZoomControls
@@ -50,23 +52,27 @@ export function PreviewPanel({
             onZoomOut={onPreviewZoomOut}
           />
           {canDownloadPng && (
-            <button type="button" className="preview-download-button" onClick={onDownloadPng}>
+            <button
+              type="button"
+              className={`${buttonStyles.button} ${styles['preview-download-button']}`}
+              onClick={onDownloadPng}
+            >
               <ImageDown aria-hidden="true" />
               PNG
             </button>
           )}
-          <div className="canvas-viewport">
-            <div className="canvas-stack">
-              <canvas ref={canvasRef} style={canvasStyle} />
+          <div className={styles['canvas-viewport']}>
+            <div className={styles['canvas-stack']}>
+              <canvas ref={canvasRef} className={styles.canvas} style={canvasStyle} />
               {previewInfo && previewScale !== 1 && (
-                <span className="zoom-badge">{Math.round(previewScale * 100)}%</span>
+                <span className={styles['zoom-badge']}>{Math.round(previewScale * 100)}%</span>
               )}
             </div>
           </div>
         </>
       ) : (
-        <div className="canvas-viewport">
-          <div className="empty-state">
+        <div className={styles['canvas-viewport']}>
+          <div className={styles['empty-state']}>
             <ImagePlus aria-hidden="true" />
             <p>Choose an image to create pixel art with a grid.</p>
           </div>

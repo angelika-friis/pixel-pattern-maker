@@ -1,0 +1,35 @@
+.palette-panel {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-panel);
+}
+
+.palette-content {
+  max-height: 0;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 180ms ease,
+    opacity 140ms ease,
+    padding 180ms ease,
+    border-color 180ms ease;
+}
+
+.palette-content[aria-hidden='true'] {
+  border-color: transparent;
+  pointer-events: none;
+}
+
+.palette-content[data-open='true'] {
+  max-height: 270px;
+  padding: 10px;
+  opacity: 1;
+}

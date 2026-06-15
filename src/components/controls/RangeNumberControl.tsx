@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { clamp } from '../../domain/pixelGrid';
+import styles from './RangeNumberControl.module.css';
 
 type RangeNumberControlProps = {
   Icon: LucideIcon;
@@ -42,14 +43,14 @@ export function RangeNumberControl({
   };
 
   return (
-    <div className="control-group">
-      <div className="control-heading">
+    <div className={styles['control-group']}>
+      <div className={styles['control-heading']}>
         <Icon aria-hidden="true" />
-        <span>{label}</span>
+        <span className={styles['control-label']}>{label}</span>
         {isEditing ? (
           <input
             ref={inputRef}
-            className="heading-number-input"
+            className={styles['heading-number-input']}
             type="number"
             min={inputMin}
             max={inputMax}
@@ -64,13 +65,18 @@ export function RangeNumberControl({
             aria-label={inputLabel}
           />
         ) : (
-          <button className="display-value-button" type="button" onClick={() => setIsEditing(true)}>
+          <button
+            className={styles['display-value-button']}
+            type="button"
+            onClick={() => setIsEditing(true)}
+          >
             {displayValue}
           </button>
         )}
       </div>
       <input
         type="range"
+        className={styles['range-input']}
         min={rangeMin}
         max={rangeMax}
         value={value}

@@ -1,5 +1,6 @@
 import type { PixelColor } from '../../domain/pixelGrid';
 import { PaletteColorItem } from './PaletteColorItem';
+import styles from './PaletteColorGrid.module.css';
 
 type PaletteColorGridProps = {
   colors: PixelColor[];
@@ -13,7 +14,7 @@ export function PaletteColorGrid({
   onColorSelect,
 }: PaletteColorGridProps) {
   return (
-    <div className="palette-grid">
+    <div className={styles['palette-grid']}>
       {colors.map((color) => (
         <PaletteColorItem
           color={color}

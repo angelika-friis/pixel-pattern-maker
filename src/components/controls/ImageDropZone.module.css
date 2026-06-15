@@ -1,0 +1,33 @@
+.drop-zone {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: center;
+  gap: 12px;
+  min-height: 86px;
+  padding: 16px;
+  border: 1px dashed var(--color-drop-border);
+  border-radius: 8px;
+  color: var(--color-text-soft);
+  background: var(--color-surface-muted);
+  cursor: pointer;
+}
+
+.drop-zone-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.drop-zone-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--color-accent);
+}
+
+.drop-zone-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+}

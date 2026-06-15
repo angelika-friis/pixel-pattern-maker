@@ -1,6 +1,8 @@
 import { ChevronDown, Palette } from 'lucide-react';
 import type { PixelColor } from '../../domain/pixelGrid';
+import buttonStyles from '../../styles/shared/button.module.css';
 import { PalettePreview } from './PalettePreview';
+import styles from './PaletteToggleButton.module.css';
 
 type PaletteToggleButtonProps = {
   colorCount: number;
@@ -19,13 +21,13 @@ export function PaletteToggleButton({
 }: PaletteToggleButtonProps) {
   return (
     <button
-      className="palette-button secondary"
+      className={`${buttonStyles.button} ${buttonStyles.secondary} ${styles['palette-button']}`}
       type="button"
       aria-expanded={isOpen}
       aria-controls={contentId}
       onClick={onToggle}
     >
-      <span className="palette-button-label">
+      <span className={styles['palette-button-label']}>
         <Palette aria-hidden="true" />
         <span>Colors</span>
         <strong>{colorCount}</strong>
@@ -33,7 +35,7 @@ export function PaletteToggleButton({
 
       <PalettePreview colors={previewColors} />
 
-      <ChevronDown className="palette-button-chevron" aria-hidden="true" />
+      <ChevronDown className={styles['palette-button-chevron']} aria-hidden="true" />
     </button>
   );
 }

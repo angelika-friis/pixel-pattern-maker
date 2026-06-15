@@ -1,4 +1,5 @@
 import { Grid3X3 } from 'lucide-react';
+import styles from './GridControls.module.css';
 
 type GridControlsProps = {
   gridColor: string;
@@ -14,8 +15,8 @@ export function GridControls({
   onShowGridChange,
 }: GridControlsProps) {
   return (
-    <div className="control-row">
-      <label className="switch">
+    <div className={styles['control-row']}>
+      <label className={styles.switch}>
         <input
           type="checkbox"
           checked={showGrid}
@@ -24,9 +25,10 @@ export function GridControls({
         <span>Show grid</span>
       </label>
 
-      <label className="color-control" title="Grid color">
+      <label className={styles['color-control']} title="Grid color">
         <Grid3X3 aria-hidden="true" />
         <input
+          className={styles['color-input']}
           type="color"
           value={gridColor}
           onChange={(event) => onGridColorChange(event.target.value)}

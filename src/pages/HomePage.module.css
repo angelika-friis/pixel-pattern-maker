@@ -1,0 +1,26 @@
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: 24px;
+  min-height: calc(100vh - 48px);
+}
+
+.control-stack {
+  align-self: start;
+  display: grid;
+  gap: 14px;
+}
+
+.preview-stack {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+@media (max-width: 860px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}

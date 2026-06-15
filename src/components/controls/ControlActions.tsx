@@ -1,4 +1,6 @@
 import { Download, RotateCcw } from 'lucide-react';
+import buttonStyles from '../../styles/shared/button.module.css';
+import styles from './ControlActions.module.css';
 
 type ControlActionsProps = {
   canDownload: boolean;
@@ -8,12 +10,21 @@ type ControlActionsProps = {
 
 export function ControlActions({ canDownload, onDownload, onReset }: ControlActionsProps) {
   return (
-    <div className="action-row">
-      <button type="button" onClick={onDownload} disabled={!canDownload}>
+    <div className={styles['action-row']}>
+      <button
+        className={buttonStyles.button}
+        type="button"
+        onClick={onDownload}
+        disabled={!canDownload}
+      >
         <Download aria-hidden="true" />
         PDF
       </button>
-      <button type="button" className="secondary" onClick={onReset}>
+      <button
+        type="button"
+        className={`${buttonStyles.button} ${buttonStyles.secondary}`}
+        onClick={onReset}
+      >
         <RotateCcw aria-hidden="true" />
         Reset
       </button>

@@ -1,0 +1,38 @@
+.palette-button {
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 10px;
+}
+
+.palette-button-label,
+.palette-preview {
+  display: flex;
+  align-items: center;
+}
+
+.palette-button-label {
+  min-width: 0;
+  gap: 8px;
+  font-weight: 800;
+}
+
+.palette-button-label strong {
+  min-width: 34px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  color: var(--color-inverse-text);
+  background: var(--color-inverse-surface);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.palette-button-chevron {
+  flex: 0 0 auto;
+  margin-left: 10px;
+  transition: transform 160ms ease;
+}
+
+.palette-button[aria-expanded='true'] .palette-button-chevron {
+  transform: rotate(180deg);
+}

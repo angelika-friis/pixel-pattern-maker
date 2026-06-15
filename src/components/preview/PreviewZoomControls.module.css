@@ -1,0 +1,49 @@
+.preview-zoom-controls {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 34px minmax(120px, 180px) 34px 34px auto;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 32px);
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-overlay-surface);
+  box-shadow: var(--shadow-floating);
+}
+
+.preview-zoom-controls > svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent);
+}
+
+.preview-zoom-range {
+  min-width: 0;
+  width: 100%;
+  accent-color: var(--color-accent);
+}
+
+.preview-zoom-value {
+  min-width: 44px;
+  color: var(--color-text);
+  font-size: 0.82rem;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+@media (max-width: 860px) {
+  .preview-zoom-controls {
+    top: 10px;
+    left: 10px;
+    grid-template-columns: auto 34px minmax(88px, 1fr) 34px auto;
+  }
+
+  .reset-zoom-button {
+    display: none;
+  }
+}

@@ -5,6 +5,8 @@ import {
   MIN_PREVIEW_ZOOM,
   PREVIEW_ZOOM_STEP,
 } from '../../domain/pixelGrid';
+import buttonStyles from '../../styles/shared/button.module.css';
+import styles from './PreviewZoomControls.module.css';
 
 type PreviewZoomControlsProps = {
   zoom: number;
@@ -24,11 +26,11 @@ export function PreviewZoomControls({
   const zoomPercent = Math.round(zoom * 100);
 
   return (
-    <div className="preview-zoom-controls" aria-label="Zoom preview">
+    <div className={styles['preview-zoom-controls']} aria-label="Zoom preview">
       <ZoomIn aria-hidden="true" />
       <button
         type="button"
-        className="icon-button"
+        className={`${buttonStyles.button} ${buttonStyles['icon-button']}`}
         onClick={onZoomOut}
         disabled={zoom <= MIN_PREVIEW_ZOOM}
         aria-label="Zoom out"
@@ -37,6 +39,7 @@ export function PreviewZoomControls({
       </button>
       <input
         type="range"
+        className={styles['preview-zoom-range']}
         min={MIN_PREVIEW_ZOOM}
         max={MAX_PREVIEW_ZOOM}
         step={PREVIEW_ZOOM_STEP}
@@ -46,7 +49,7 @@ export function PreviewZoomControls({
       />
       <button
         type="button"
-        className="icon-button"
+        className={`${buttonStyles.button} ${buttonStyles['icon-button']}`}
         onClick={onZoomIn}
         disabled={zoom >= MAX_PREVIEW_ZOOM}
         aria-label="Zoom in"
@@ -55,14 +58,16 @@ export function PreviewZoomControls({
       </button>
       <button
         type="button"
-        className="icon-button"
+        className={`${buttonStyles.button} ${buttonStyles['icon-button']} ${
+          styles['reset-zoom-button']
+        }`}
         onClick={onReset}
         disabled={zoom === DEFAULT_PREVIEW_ZOOM}
         aria-label="Reset zoom"
       >
         <RotateCcw aria-hidden="true" />
       </button>
-      <span className="preview-zoom-value">{zoomPercent}%</span>
+      <span className={styles['preview-zoom-value']}>{zoomPercent}%</span>
     </div>
   );
 }

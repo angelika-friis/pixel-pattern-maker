@@ -1,5 +1,7 @@
 import { Moon, Sun } from 'lucide-react';
 import type { ThemeMode } from '../../domain/theme';
+import buttonStyles from '../../styles/shared/button.module.css';
+import styles from './ThemeToggleButton.module.css';
 
 type ThemeToggleButtonProps = {
   themeMode: ThemeMode;
@@ -13,7 +15,7 @@ export function ThemeToggleButton({ themeMode, onToggle }: ThemeToggleButtonProp
 
   return (
     <button
-      className="theme-toggle-button"
+      className={`${buttonStyles.button} ${styles['theme-toggle-button']}`}
       type="button"
       title={label}
       aria-label={label}

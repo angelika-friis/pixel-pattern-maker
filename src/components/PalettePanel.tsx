@@ -1,6 +1,7 @@
 import type { PixelColor } from '../domain/pixelGrid';
 import { PaletteColorGrid } from './palette/PaletteColorGrid';
 import { PaletteToggleButton } from './palette/PaletteToggleButton';
+import styles from './PalettePanel.module.css';
 
 type PalettePanelProps = {
   isOpen: boolean;
@@ -24,7 +25,7 @@ export function PalettePanel({
   const selectedColorHexSet = new Set(selectedColorHexes);
 
   return (
-    <section className="palette-panel" aria-label="Image colors">
+    <section className={styles['palette-panel']} aria-label="Image colors">
       <PaletteToggleButton
         colorCount={pixelColors.length}
         contentId={PALETTE_CONTENT_ID}
@@ -34,7 +35,7 @@ export function PalettePanel({
       />
 
       <div
-        className="palette-content"
+        className={styles['palette-content']}
         id={PALETTE_CONTENT_ID}
         aria-hidden={!isOpen}
         data-open={isOpen}
